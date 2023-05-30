@@ -1,0 +1,53 @@
+{% extends 'cars/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<main role="main">
+
+    </div> <!-- /container -->
+    <div class="container" style="width: 50rem; margin-top: 10rem;" >
+        <div class="row" style="justify-content: space-between;">
+            <div class="col-6">
+                <h2>Carros</h2>
+            </div>
+            <div class="col-2">
+                <p><a class="btn btn-outline-info" href="{% url 'detail' %}" role="button">Añadir</a></p>
+            </div>
+        </div>
+        <div class="row" style="justify-content: center;">
+            <table class="table" >
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% if cars %}
+                    
+                    {% for car in cars %}
+                    <tr>
+                        <th scope="row">{{ car.id }}</th>
+                        <td> <a href="{% url 'detail_with_id' car.id %}">{{ car.name }} </a>   </td>
+                        <td>{{ car.price }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                      <tr>
+                      </tr>
+                    {% endif %}
+                 
+                </tbody>
+              </table>
+        </div>
+       
+    </div> <!-- /container -->
+
+   
+
+</main>
+
+{% endblock %}

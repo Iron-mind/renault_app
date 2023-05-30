@@ -1,0 +1,82 @@
+{% extends 'cars/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+
+<main role="main">
+
+    <div class="container" style="display:flex ;justify-content: center; margin-top: 10rem;">
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+              <h5 class="card-title">Datos de la flor</h5>
+              
+              {% if car %}
+              
+              <form action="{% url 'update' car.id%}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="name">Nombre</label>
+                  <input type="string" class="form-control" id="name"  name="name"value="{{car.name}}">
+                </div>
+                <div class="form-group">
+                  <label for="price">Precio</label>
+                  <input type="number" class="form-control" id="price" name="price" value="{{car.price}}">
+                </div>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Upload</span>
+                        </div>
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="image-car" name="image">
+                          <label class="custom-file-label" for="image-car" id="image-label">    
+                            {% if car.image %}
+                             Actualizar imagen
+                            {% else %}
+                             Carga una imagen  
+                            {% endif %}
+                        </label>
+                        </div>
+                      </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+           
+                {% else %}
+                
+                <form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="name">Nombre</label>
+                      <input type="string" class="form-control" id="name"  name="name" placeholder="Ingresa el nombre de la flor">
+                    </div>
+                    <div class="form-group">
+                      <label for="price">Precio</label>
+                      <input type="number" class="form-control" id="price" name="price" placeholder="Ingresa el precio">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="image-car" name="image">
+                              <label class="custom-file-label" for="image-car" id="image-label">Carga una imagen</label>
+                            </div>
+                          </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+                {% endif %}
+              
+            </div>
+          </div>
+
+
+    </div> <!-- /container -->
+    
+</main>
+
+{% endblock %}
