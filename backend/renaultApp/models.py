@@ -30,13 +30,13 @@ class Car(models.Model):
         return self.name
  
 class User(models.Model):
-    username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, default="user")
     name = models.CharField(max_length=60)
     email = models.EmailField(max_length=50)
     address = models.CharField(max_length=50)
     phone = models.DecimalField(max_digits=10, decimal_places=0)
     id = models.CharField(max_length=10, primary_key=True)
-    password = models.CharField(max_length=128)  # Longitud suficiente para almacenar el hash
+    password = models.CharField(max_length=128, default="123")  # Longitud suficiente para almacenar el hash
 
     def save(self, *args, **kwargs):
         # Generar el hash de la contraseña antes de guardarla
@@ -89,17 +89,18 @@ class Parts(models.Model):
     def __str__(self):
         return self.name
     
-class Request(models.Model):
+class Demand(models.Model):
     worker = models.ForeignKey(Staff, on_delete=models.PROTECT)
     state = models.BooleanField(default=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    class Meta:
-        abstract = True
+
+    def __str__(self):
+        return self.name
 
 class Quotation(models.Model):
     price = models.IntegerField(default=0)
     carName = models.ForeignKey(Car, on_delete=models.PROTECT)
-    request = models.ForeignKey(Request)
+    request = models.ForeignKey(Demand, on_delete=models.PROTECT, default=Demand)
 
     def __str__(self):
         return self.name
@@ -107,9 +108,9 @@ class Quotation(models.Model):
 class Order(models.Model):
     description = models.TextField(default="descripción aqui")
     startTime = models.DateField()
-    car = models.CharField(max_length=70)
+    car = models.CharField(max_length=70, default="car")
     price = models.IntegerField(default=0)
-    request = models.ForeignKey(Request)
+    request = models.ForeignKey(Demand, on_delete=models.PROTECT, default=Demand)
     def __str__(self):
         return self.name
 
