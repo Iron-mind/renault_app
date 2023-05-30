@@ -1,7 +1,8 @@
 from django.db import models
 import cloudinary
 from cloudinary.models import CloudinaryField
-
+#Para guardar contraseñas
+from django.contrib.auth.hashers import make_password
 
 class Car(models.Model):
     CAR_OF_TYPE = [
@@ -29,11 +30,18 @@ class Car(models.Model):
         return self.name
  
 class User(models.Model):
+    username = models.CharField(max_length=50)
     name = models.CharField(max_length=60)
     email = models.EmailField(max_length=50)
     address = models.CharField(max_length=50)
     phone = models.DecimalField(max_digits=10, decimal_places=0)
     id = models.CharField(max_length=10, primary_key=True)
+    password = models.CharField(max_length=128)  # Longitud suficiente para almacenar el hash
+
+    def save(self, *args, **kwargs):
+        # Generar el hash de la contraseña antes de guardarla
+        self.contraseña = make_password(self.contraseña)
+        super().save(*args, **kwargs)
 		
     class Meta:
         abstract = True
@@ -82,27 +90,28 @@ class Parts(models.Model):
         return self.name
     
 class Request(models.Model):
-    Worker = models.ForeignKey(Staff, on_delete=models.PROTECT)
-    State = models.BooleanField(default=False)
-    
+    worker = models.ForeignKey(Staff, on_delete=models.PROTECT)
+    state = models.BooleanField(default=False)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     class Meta:
         abstract = True
 
-class Quotation(Request):
+class Quotation(models.Model):
     price = models.IntegerField(default=0)
     carName = models.ForeignKey(Car, on_delete=models.PROTECT)
-    
+    request = models.ForeignKey(Request)
+
     def __str__(self):
         return self.name
     
-class Order(Request):
+class Order(models.Model):
     description = models.TextField(default="descripción aqui")
     startTime = models.DateField()
-    endTime = models.DateField()
-    
+    car = models.CharField(max_length=70)
+    price = models.IntegerField(default=0)
+    request = models.ForeignKey(Request)
     def __str__(self):
         return self.name
-
 
 class Payment(models.Model):
     register = models.IntegerField(default=0)
