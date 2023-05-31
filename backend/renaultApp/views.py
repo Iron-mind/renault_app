@@ -12,13 +12,23 @@ from .serializers import CarSerializer
 
 # Create your views here.
 
-#Vista para consultar todas las flores 
+#Vista para el home 
 def home(request):
     try:
         cars = Car.objects.all()
     except:
         raise Http404("No cars available")
     return render(request, "cars/home.html",{"cars": cars})
+
+#Vista para el home 
+def car(request):
+    return render(request, "cars/home.html", {})
+
+#Vista para el home 
+def login(request):
+    return render(request, "cars/home.html", {})
+
+
 
 #car_id:None permite que se puede llamar la vista funcione cuando la petición 
 #incluye un id asi como cuando no incluye ninguno.

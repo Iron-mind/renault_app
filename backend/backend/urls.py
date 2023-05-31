@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls import  include
+from django.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
 #Para visualizar la pagina de React
@@ -23,7 +23,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("cars/", include("renaultApp.urls")), #nombre-app.urls
+    path('', include("renaultApp.urls")), #nombre-app.urls
     #El path para la pagina de react
     path('next-app/', TemplateView.as_view(template_name='next_app.html'))
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
