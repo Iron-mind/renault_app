@@ -9,26 +9,46 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CarSerializer
+from .serializers import PartSerializer
 
-# Create your views here.
-
-#Vista para el home 
+#Vista para el landing
 def home(request):
-    try:
-        cars = Car.objects.all()
-    except:
-        raise Http404("No cars available")
-    return render(request, "cars/home.html",{"cars": cars})
+    return render(request, "example3.html",{})
 
-#Vista para el home 
+#Vista para el logearse
+@api_view(['GET','POST'])
+def logIn(request):
+    if request.method == 'GET':
+        return render(request, 'example.html', {})
+    elif request.method == 'POST':
+        serializer = PartSerializer(data=request.data)
+        #Valida que la informacion es correcta
+        if serializer.is_valid():
+            #Retorna el codigo de estado 201 Creado
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+#Vista para registrarse
+@api_view(['GET','POST'])
+def SignUp(request):
+    if request.method == 'GET':
+        return render(request, 'example2.html', {})
+    if request.method == 'POST':
+        serializer = PartSerializer(data=request.data)
+        #Valida que la informacion es correcta
+        if serializer.is_valid():
+            #Guarda en la base de datos
+            serializer.save()
+            #Retorna el codigo de estado 201 Creado
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#Vista para car
 def car(request):
     return render(request, "cars/home.html", {})
 
-#Vista para el home 
-def login(request):
-    return render(request, "cars/home.html", {})
 
-
+#Ejemplos monitora
 
 #car_id:None permite que se puede llamar la vista funcione cuando la petición 
 #incluye un id asi como cuando no incluye ninguno.

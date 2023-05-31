@@ -25,6 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("renaultApp.urls")), #nombre-app.urls
     #El path para la pagina de react
-    path('next-app/', TemplateView.as_view(template_name='next_app.html'))
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    #path('next-app/', TemplateView.as_view(template_name='next_app.html'))
+]#+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

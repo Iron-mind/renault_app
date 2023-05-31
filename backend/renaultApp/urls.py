@@ -1,16 +1,9 @@
 from . import views
 from django.urls import path
-from rest_framework import routers
-from .api import ClientViewSet
-from .api import PartViewSet
 
-
-router = routers.DefaultRouter()
-
-router.register('login', ClientViewSet, 'login')
-router.register('parts', PartViewSet, 'parts')
-
-#router.register('home', views.home, 'home')
-#router.register('car', views.car, 'car')
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('car/', views.car, name='car'), 
+	path('logIn/', views.logIn, name='logIn'),
+    path('signUp/', views.SignUp, name='signUp'),	
+    path('home/', views.home, name='home'),																 
+]
