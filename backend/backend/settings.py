@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'corsheaders',  #Para configurar que dominios pueden hacer peticiones a la app
 										#Es necesario para la segunda parte del taller con react. 
     'renaultApp', #El nombre de la app de django que creaste con el comando startapp
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +148,12 @@ CLOUDINARY_STORAGE = {
 }
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'backend/static')]# nombre-proyecto/static
+
+AUTHENTICATION_BACKENDS ={
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+}
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL='/'
