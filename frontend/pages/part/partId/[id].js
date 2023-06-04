@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
-import { getPart } from "../api/part.api"
+import { getPart } from "../../../api/part.api"
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-export function Part({ part }) {
+export default function Part() {
     const [part, setPart] = useState([]);
     const router = useRouter();
     const partId = router.query.id
-
+    console.log(partId)
     useEffect(()=> {
         async function loadPart(){
             const res = await getPart(partId);
@@ -36,6 +36,9 @@ export function Part({ part }) {
                         </tbody>
                     </table>
                 </div>
+                <Link href={'/parts/'}>
+                    <button className="rounded-full w-[15rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] left-[3rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10]">Volverse</button>
+                </Link>
                 <Link href={'/parts/'}>
                     <button className="rounded-full w-[15rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] right-[3rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10]">Confirmar</button>
                 </Link>

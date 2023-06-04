@@ -52,6 +52,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 
+
 class LoginViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
@@ -70,8 +71,8 @@ class LoginViewSet(viewsets.ModelViewSet):
             'user': ClientLoginSerializer(user).data,
             'password': password
         }
-        print("hola")
         return Response(data, status=status.HTTP_201_CREATED)
+    
         username = request.data.get('username')
         password = request.data.get('password')
 
