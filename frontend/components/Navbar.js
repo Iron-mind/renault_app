@@ -25,6 +25,12 @@ const Navbar = () => {
           <Link href="/cars">Vehículos</Link>
         </li>
         <li className={styles.navItem}>
+          <Link href="/part">Partes</Link>
+        </li>
+        <li className={styles.navItem}>
+          <Link href="/quotation">Cotización</Link>
+        </li>
+        <li className={styles.navItem}>
           <Link href="/contacto">Contacto</Link>
         </li>
       </ul>

@@ -7,6 +7,7 @@ from .models import Parts
 from .models import Demand
 from .models import Quotation
 from .models import Payment
+
 # Register your models here.
 admin.site.register(Car)
 admin.site.register(Client)

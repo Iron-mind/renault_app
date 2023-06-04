@@ -9,8 +9,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CarSerializer
-from .serializers import PartSerializer
+from .serializers import PartsSerializer
 
+"""
 #Vista para el landing
 def home(request):
     return render(request, "example3.html",{})
@@ -21,7 +22,7 @@ def logIn(request):
     if request.method == 'GET':
         return render(request, 'example.html', {})
     elif request.method == 'POST':
-        serializer = PartSerializer(data=request.data)
+        serializer = PartsSerializer(data=request.data)
         #Valida que la informacion es correcta
         if serializer.is_valid():
             #Retorna el codigo de estado 201 Creado
@@ -101,3 +102,5 @@ def update(request, car_id):
                 return render(request, "cars/detail.html", {})
         except car.DoesNotExist:
             raise Http404("Car does not exist")
+
+"""
