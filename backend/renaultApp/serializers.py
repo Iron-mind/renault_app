@@ -28,8 +28,8 @@ class ClientSerializer(serializers.ModelSerializer):
 class ClientLoginSerializer(serializers.ModelSerializer):
 
     #Campos que vamos a utilizar
-    username = serializers.CharField(max_length=50)
-    password = serializers.CharField(min_length=8, max_length=64)
+    model = User
+    fields = ['username', 'password']
 
     #Validamos los datos
     def validate(self, data):

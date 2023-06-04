@@ -32,7 +32,7 @@ export function PartList() {
                                 <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8">{item.price}</td>
                                 <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8">{item.amount}</td>
                                 <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8 text-center">
-                                    <Link href={`/part/?id=${item.id}`} passHref>
+                                    <Link href={`/part/partId/${item.id}`} passHref>
                                         <button className="rounded-full w-[100px] h-[50px] bg-[#0d0f10] hover:bg-[#bbb] hover:text-[#0d0f10]">Edit</button>
                                     </Link>
                                 </td>           
