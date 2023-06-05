@@ -11,6 +11,9 @@ lerna-debug.log*
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
+backend/backend/__pycache__/**
+backend/renaultApp/__pycache__/**
+
 # Runtime data
 pids
 *.pid
@@ -170,9 +173,12 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
-backend/backend/__pycache__/
-backend/renaultApp/__pycache__/
 
 .venv
-
+./venv/**
 .venv/Lib/site-packages
+
+backend/renaultApp/migrations/
+backend/renaultApp/__pycache__/
+backend/backend/__pycache__/
+
