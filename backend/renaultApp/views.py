@@ -6,10 +6,40 @@ from . models import Car
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import redirect
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CarSerializer
 from .serializers import PartsSerializer
+
+from rest_framework.authtoken.models import Token
+from .models import Client
+from .models import User
+from rest_framework.decorators import api_view
+from django.contrib.auth.hashers import check_password
+from rest_framework.response import Response
+
+@api_view(['POST'])
+def login(request):
+    username = request.data['username']
+    password = request.data['password']
+    user = None
+    try:
+        user_or_users = Client.objects.filter(username=username)
+        if user_or_users.exists():
+            user = user_or_users.first()
+        else:
+            user = user_or_users
+    except Client.DoesNotExist:
+        return Response("Usuario no encontrado", status=status.HTTP_204_NO_CONTENT)
+
+    pwd_valid = check_password(password, user.password)
+    if not pwd_valid:
+        return Response("Contraseña incorrecta", status=status.HTTP_204_NO_CONTENT)
+    
+    # token, created = Token.objects.get_or_create(user=user)
+    token = 'b93f32b520'+str(user.username)
+
+    return Response(token, status=status.HTTP_200_OK)
+
 
 """
 #Vista para el landing

@@ -21,17 +21,25 @@ class UserSerializer(serializers.ModelSerializer):
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = '__all__'
+        fields = ['username', 'name', 'address', 'phone', 'paymentType', 'password']
+        extra_kwargs = {
+            'username': {'required': True},
+            'name': {'required': False},
+            'address': {'required': False},
+            'phone': {'required': False},
+            'paymentType': {'required': False},
+        }
 
 #Serializer del login del cliente
 
 class ClientLoginSerializer(serializers.ModelSerializer):
 
     #Campos que vamos a utilizar
-    model = User
-    fields = ['username', 'password']
+    class Meta:
+        model = Client
+        fields = ['username', 'password']
 
-    #Validamos los datos
+    # #Validamos los datos
     def validate(self, data):
         
         #authenticate recibe las credenciales, si son válidas devuelve el objeto del usuario
