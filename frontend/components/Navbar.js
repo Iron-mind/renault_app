@@ -14,6 +14,7 @@ const Navbar = () => {
   }, [router]);
   function logOut() {
     localStorage.removeItem("authored");
+    localStorage.removeItem("token");
   }
   return (
     <nav className={styles.navbar}>

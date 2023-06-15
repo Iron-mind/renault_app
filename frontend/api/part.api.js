@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+const apiLink = 'http://localhost:8000/'
 export const getAllParts = () => {
     return axios.get('http://localhost:8000/parts/')
 }

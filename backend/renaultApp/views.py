@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -21,9 +22,11 @@ from rest_framework.response import Response
 def login(request):
     username = request.data['username']
     password = request.data['password']
+
     user = None
     try:
         user_or_users = Client.objects.filter(username=username)
+
         if user_or_users.exists():
             user = user_or_users.first()
         else:
@@ -35,9 +38,11 @@ def login(request):
     if not pwd_valid:
         return Response("Contraseña incorrecta", status=status.HTTP_204_NO_CONTENT)
     
-    # token, created = Token.objects.get_or_create(user=user)
-    token = 'b93f32b520'+str(user.username)
-
+    # today date
+    date = datetime.datetime.now()
+    date_str = date.strftime("%Y-%m-%d")
+    token = 'b93f32b520'+str(user.username) + ";" +date_str
+    print(token)
     return Response(token, status=status.HTTP_200_OK)
 
 

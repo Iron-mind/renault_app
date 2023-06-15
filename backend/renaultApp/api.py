@@ -52,8 +52,8 @@ class PaymentViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
 
 
-# class LoginViewSet(viewsets.LoginModelViewSet):
-#     serializer_class = ClientLoginSerializer
+class LoginViewSet(viewsets.LoginModelViewSet):
+    serializer_class = ClientLoginSerializer
 
 #     @action(detail=False, methods=['post'])
 #     def login(self, request):
