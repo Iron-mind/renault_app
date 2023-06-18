@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Login from "./Login";
 import '../app/globals.css'
+import LoginView from "../pages/login";
 
 const AuthChecker = ({ children }) => {
   const router = useRouter();
@@ -32,7 +32,7 @@ const AuthChecker = ({ children }) => {
       }
     }
   }, [isAuthenticated, router]);
-  if (router.pathname === '/login') return <Login />;
+  if (router.pathname === '/login') return <LoginView />;
   // Renderiza los componentes hijos solo si el usuario está autenticado
   return isAuthenticated ? children : null;
 };

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 // components/Navbar.js
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -20,7 +21,14 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <ul className={styles.navList}>
         <li className={styles.navItem}>
-          <Link href="/">Landing</Link>
+          <Link href="/">
+            <Image 
+              src={'/images/logo.webp'} 
+              width={45} height={35} 
+              style={{backgroundColor:'white', display:'inline'}}/>
+              <span className={styles.navLogo}> Renault</span>
+             
+          </Link>
         </li>
         <li className={styles.navItem}>
           <Link href="/cars">Vehículos</Link>

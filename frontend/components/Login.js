@@ -32,7 +32,7 @@ const Login = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center mt-4">
       <div className="bg-white p-8 shadow-md rounded-md">
         <h2 className="text-2xl font-semibold mb-6">Iniciar sesión</h2>
         <Image
