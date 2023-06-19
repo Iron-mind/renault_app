@@ -25,7 +25,7 @@ const Navbar = () => {
           <Link href="/cars">Vehículos</Link>
         </li>
         <li className={styles.navItem}>
-          <Link href="/part">Partes</Link>
+          <Link href="/part">Inventario</Link>
         </li>
         <li className={styles.navItem}>
           <Link href="/quotation">Cotización</Link>

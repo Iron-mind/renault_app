@@ -33,7 +33,7 @@ class ConcessionaireViewSet(viewsets.ModelViewSet):
     serializer_class = ConcessionaireSerializer
 
 class PartsViewSet(viewsets.ModelViewSet):
-    queryset = Parts.objects.all()
+    queryset = Parts.objects.all().order_by("name")
     serializer_class = PartsSerializer
 
 class DemandViewSet(viewsets.ModelViewSet):
