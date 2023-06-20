@@ -4,7 +4,6 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
-
 #Serializers
 from .serializers import (
     CarSerializer, ClientSerializer, ClientLoginSerializer,StaffSerializer,
@@ -53,35 +52,46 @@ class PaymentViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
 
 
-class LoginViewSet(viewsets.ModelViewSet):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
+class LoginViewSet(viewsets.LoginModelViewSet):
+    serializer_class = ClientLoginSerializer
 
-    #Detail define si es una peticion de detalle
-    #Method añadimos que metodo permitiremos
-    @action(detail=False, methods=['post'])
-    def login(self,request):
-        #User Sign in 
-        serializer = ClientLoginSerializer
-        serializer.is_valid(raise_exception=True)
+#     @action(detail=False, methods=['post'])
+#     def login(self, request):
+#     #     # log = views.obtain_auth_token(request)
 
-        user, password = serializer.save()
+#         username = request.data.get('username')
+#         password = request.data.get('password')
+#         user = user.objects.get(username=username)
+#         token = Token.objects.get(user=user)
 
-        data = {
-            'user': ClientLoginSerializer(user).data,
-            'password': password
-        }
-        return Response(data, status=status.HTTP_201_CREATED)
+#         return Response({'message': 'Inicio de sesión exitoso'}, status=status.HTTP_200_OK)
+#     #     # Autenticar al usuario
+    #     user = {username, password}
+
+    #     if user is not None:
+    #        # login(request, user)
+    #         return Response({'message': 'Login successful'})
+    #     else:
+    #         return Response({'message': 'Invalid credentials'}, status=401)
+    #     # serializer.is_valid(raise_exception=True)
+
+    #     # user, password = serializer.save()
+
+    #     # data = {
+    #     #     'user': ClientLoginSerializer(user).data,
+    #     #     'password': password
+    #     # }
+    #     # return Response(data, status=status.HTTP_201_CREATED)
     
-        username = request.data.get('username')
-        password = request.data.get('password')
+    #     # username = request.data.get('username')
+    #     # password = request.data.get('password')
 
-        #Verifica las credenciales de usuario
-        user = authenticate(request, username=username, password=password)
+    #     # #Verifica las credenciales de usuario
+    #     # user = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            # Iniciar sesión del usuario
-            login(request, user)
-            return Response({'message': 'Inicio de sesión exitoso'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'message': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
+    #     # if user is not None:
+    #     #     # Iniciar sesión del usuario
+    #     #     login(request, user)
+    #     #     return Response({'message': 'Inicio de sesión exitoso'}, status=status.HTTP_200_OK)
+        # else:
+        #     return Response({'message': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)

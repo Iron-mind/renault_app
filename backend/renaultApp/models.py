@@ -34,7 +34,7 @@ class User(models.Model):
     name = models.CharField(max_length=60)
     email = models.EmailField(max_length=50)
     address = models.CharField(max_length=50)
-    phone = models.DecimalField(max_digits=10, decimal_places=0)
+    phone = models.DecimalField(max_digits=10, decimal_places=0, default=111)
     password = models.CharField(max_length=128)  # Longitud suficiente para almacenar el hash
 
     def save(self, *args, **kwargs):
