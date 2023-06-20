@@ -40,6 +40,9 @@ const Navbar = () => {
           <Link href="/quotation">Cotización</Link>
         </li>
         <li className={styles.navItem}>
+          <Link href="/order">Ordenes de Trabajo</Link>
+        </li>
+        <li className={styles.navItem}>
           <Link href="/contacto">Contacto</Link>
         </li>
       </ul>
