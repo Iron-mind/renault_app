@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inventario de Carros</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    
+    .header {
+      background-color: #333333;
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    
+    .nav ul li {
+      margin-right: 20px;
+    }
+    
+    .carousel {
+      width: 1024px;
+      height: 512px;
+      position: relative;
+      overflow: hidden;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+    
+    .carousel-container {
+      width: fit-content;
+      height: 100%;
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    
+    .carousel-slide {
+      width: 1024px;
+      height: 512px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .carousel-slide img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .carousel-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background-color: rgba(0, 0, 0, 0.7); /* Color del footer */
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      font-family: "Helvetica", sans-serif;
+      font-weight: bold;
+      color: #333333;
+      margin-top: 0;
+    }
+    
+    section {
+      padding: 40px;
+      position: relative;
+    }
+    
+    section h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(207, 13, 13, 0.7);
+      color: #ffffff;
+      padding: 10px;
+      font-size: 28px;
+      text-align: center;
+    }
+
+    .footer {
+      background-color: #333333;
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;;
+    }
+
+    .footer p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Inventario de Carros</h1>
+    <nav class="nav">
+      <ul>
+        <li><a href="#section1">Servicio al cliente</a></li>
+        <li><a href="#section2">Sedes</a></li>
+        <li><a href="#section3">Agenda tu cita</a></li>
+        <li><a href="#section4">Sobre nosotros</a></li>
+        <li><a href="#section5">Catálogo</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="carousel">
+    <div class="carousel-container">
+      <div class="carousel-slide">
+        <img src="carro1.jpg" alt="Carro 1">
+        <p>BYD Dolphin</p>
+        <p></p>
+      </div>
+      <div class="carousel-slide">
+        <img src="carro2.jpg" alt="Carro 2">
+        <p> Renault Zoe Neo E-Tech</p>
+        <p></p>
+      </div>
+      <div class="carousel-slide">
+        <img src="carro3.jpg" alt="Carro 3">
+        <p>BYD T3 GL</p>
+        <p></p>
+      </div>
+      <div class="carousel-slide">
+        <img src="carro4.jpg" alt="Carro 4">
+        <p>Renault Kangoo E-Tech</p>
+        <p></p>
+      </div>
+      <div class="carousel-slide">
+        <img src="carro5.jpg" alt="Carro 5">
+        <p>JAC E10X</p>
+        <p></p>
+      </div>
+      <div class="carousel-slide">
+        <img src="carro6.jpg" alt="Carro 6">
+        <p>Zhidou D2S</p>
+        <p></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Renault</p>
+    <p>Marca registrada ® . 2023</p>
+  </div>
+</body>
+</html>
+
+  <script>
+    const carousel = document.querySelector('.carousel');
+    const container = carousel.querySelector('.carousel-container');
+    const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+
+    const slideWidth = slides[0].getBoundingClientRect().width;
+
+    container.style.width = `${slideWidth * slides.length}px`;
+
+    function moveToSlide(container, currentSlide, targetSlide) {
+      container.style.transform = `translateX(-${targetSlide.style.left})`;
+      currentSlide.classList.remove('active');
+      targetSlide.classList.add('active');
+    }
+
+    slides.forEach((slide, index) => {
+      slide.style.left = `${slideWidth * index}px`;
+    });
+
+    let currentSlide = slides[0];
+    currentSlide.classList.add('active');
+
+    function moveToNextSlide() {
+      const currentIndex = slides.findIndex((slide) => slide.classList.contains('active'));
+      const nextIndex = (currentIndex + 1) % slides.length;
+      const nextSlide = slides[nextIndex];
+
+      moveToSlide(container, currentSlide, nextSlide);
+      currentSlide = nextSlide;
+    }
+
+    setInterval(moveToNextSlide, 7000);
+  </script>
+</body>
+</html>

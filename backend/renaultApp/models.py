@@ -22,7 +22,7 @@ class Car(models.Model):
         folder='media/images/', overwrite=True, resource_type='', blank=True)
     description = models.TextField(default="descripción aqui")
     model = models.CharField(max_length=20, default="modelo")
-    Type = models.CharField(max_length=2, choices=CAR_OF_TYPE, default="SU")
+    type = models.CharField(max_length=3, choices=CAR_OF_TYPE)
 		#Define una representación de string para los objeto carro. 
 		#En el panel de django admin por ejemplo, al consultar los carros creadas
     #apareceran con la representación que defines en este metodo
@@ -30,17 +30,16 @@ class Car(models.Model):
         return self.name
  
 class User(models.Model):
-    username = models.CharField(max_length=50, default="user")
+    username = models.CharField(max_length=50)
     name = models.CharField(max_length=60)
     email = models.EmailField(max_length=50)
     address = models.CharField(max_length=50)
-    phone = models.DecimalField(max_digits=10, decimal_places=0)
-    id = models.CharField(max_length=10, primary_key=True)
-    password = models.CharField(max_length=128, default="123")  # Longitud suficiente para almacenar el hash
+    phone = models.DecimalField(max_digits=10, decimal_places=0, default=111)
+    password = models.CharField(max_length=128)  # Longitud suficiente para almacenar el hash
 
     def save(self, *args, **kwargs):
         # Generar el hash de la contraseña antes de guardarla
-        self.contraseña = make_password(self.contraseña)
+        self.password = make_password(self.password)
         super().save(*args, **kwargs)
 		
     class Meta:
@@ -53,18 +52,18 @@ class Client(User):
         ("CD","Credito"),
         ("CT","Cuotas"),
     ]
-    paymentType = models.CharField(max_length=2, choices=PAYMENT_TYPE, default="EF")
+    paymentType = models.CharField(max_length=2, choices=PAYMENT_TYPE)
     
     def __str__(self):
         return self.name
 
 class Staff(User):
-    JOB_TITTLE = [
+    JOB_TITLE = [
         ("GE","Gerente"),
         ("JT","Jefe de Taller"),
         ("VE","Vendedor"),
     ]
-    jobTittle = models.CharField(max_length=2, choices=JOB_TITTLE, default="VE")
+    jobTitle = models.CharField(max_length=2, choices=JOB_TITLE)
     image = cloudinary.models.CloudinaryField(
         folder='media/staffImage/', overwrite=True, resource_type='', blank=True)
     
@@ -75,7 +74,6 @@ class Concessionaire(models.Model):
     name = models.CharField(max_length=60)
     address = models.CharField(max_length=50)
     phone = models.DecimalField(max_digits=10, decimal_places=0)
-    id = models.CharField(max_length=10, primary_key=True)
     gerente = models.ForeignKey(Staff, on_delete=models.PROTECT)
 
     def __str__(self):
@@ -94,8 +92,6 @@ class Demand(models.Model):
     state = models.BooleanField(default=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.name
 
 class Quotation(models.Model):
     price = models.IntegerField(default=0)
@@ -103,16 +99,16 @@ class Quotation(models.Model):
     request = models.ForeignKey(Demand, on_delete=models.PROTECT, default=Demand)
 
     def __str__(self):
-        return self.name
+        return self.carName
     
 class Order(models.Model):
-    description = models.TextField(default="descripción aqui")
+    description = models.TextField(blank=True, default="descripción aqui")
     startTime = models.DateField()
     car = models.CharField(max_length=70, default="car")
     price = models.IntegerField(default=0)
     request = models.ForeignKey(Demand, on_delete=models.PROTECT, default=Demand)
     def __str__(self):
-        return self.name
+        return self.description
 
 class Payment(models.Model):
     register = models.IntegerField(default=0)
@@ -121,4 +117,4 @@ class Payment(models.Model):
     payment = models.ForeignKey(Client, on_delete=models.PROTECT)
     
     def __str__(self):
-        return self.name
+        return self.payment

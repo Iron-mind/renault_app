@@ -43,13 +43,14 @@ INSTALLED_APPS = [
     'cloudinary_storage', #Para almacenar las imagenes
     'cloudinary',  #Para almacenar las imagenes
     'rest_framework', #Provee funcionalidades para facilitar la construcción de APIs
-    'corsheaders',  #Para configurar que dominios pueden hacer peticiones a la app
-										#Es necesario para la segunda parte del taller con react. 
+    'corsheaders',  #Para configurar que dominios pueden hacer peticiones a la app					#Es necesario para la segunda parte del taller con react. 
     'renaultApp', #El nombre de la app de django que creaste con el comando startapp
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'rest_framework.authtoken', #Para autenticar usuarios
+    
 ]
 
 MIDDLEWARE = [
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -157,3 +159,14 @@ AUTHENTICATION_BACKENDS ={
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL='/'
+
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000'
+]
