@@ -36,7 +36,7 @@ export function OrderList() {
                                 <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8">{item.request.worker.name}</td>
                                 <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8 text-center">
                                     <Link href={`/order/orderId?id=${item.id}`}>
-                                        <button className="rounded-full w-[100px] h-[50px] bg-[#0d0f10] hover:bg-[#bbb] hover:text-[#0d0f10]">Ver mas</button>
+                                        <button className="rounded-full w-[100px] h-[50px] bg-[#0d0f10] hover:bg-[#bbb] hover:text-[#0d0f10]">Ver más</button>
                                     </Link>
                                 </td>           
                             </tr> 

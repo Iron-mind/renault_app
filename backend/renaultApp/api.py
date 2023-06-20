@@ -44,7 +44,7 @@ class QuotationViewSet(viewsets.ModelViewSet):
     serializer_class = QuotationSerializer
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().order_by("startTime")
     serializer_class = OrderSerializer
 
 class PaymentViewSet(viewsets.ModelViewSet):
