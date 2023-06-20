@@ -52,7 +52,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
 
 
-class LoginViewSet(viewsets.LoginModelViewSet):
+class LoginViewSet(viewsets.ModelViewSet):
     serializer_class = ClientLoginSerializer
 
 #     @action(detail=False, methods=['post'])
