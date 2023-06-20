@@ -8,8 +8,12 @@ export const getAllOrders = () => {
     return orderApi.get('/')
 }
 
-export const getPartOrder = (id) => {
+export const getOrder = (id) => {
     return orderApi.get(`/${id}/`)
+}
+
+export const getEspecificOrder = (data) => {
+    return axios.get('http://localhost:8000/especificOrder/', data)
 }
 
 export const editOrder = (id, task) => {

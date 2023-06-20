@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react"
-import { getAllOrders } from "../api/order.api"
+import { getAllOrders, getEspecificOrder } from "../api/order.api"
 import { useRouter } from 'next/router';
 import Link from "next/link";
 
 export function OrderList() {
     const [orders, setOrders] = useState([]);
 
+    //Confirmar si es el jefe de taller o no
+    const usuarioEsJefe = true
+
     useEffect(()=> {
-        async function loadOrder(){
-            const {data} = await getAllOrders();
-            setOrders(data);
-            console.log(data)
+        if(usuarioEsJefe){
+            async function loadOrder(){
+                const {data} = await getAllOrders();
+                setOrders(data);
+                console.log(data)
+            }
+            loadOrder();
+        }else{
+            //extraer la info del usuario y colocarlo aqui            
+            async function loadClientOrder(){
+                const {data} = await getEspecificOrder();
+                setOrders(data);
+                console.log(data)
+            }
+            loadClientOrder();
         }
-        loadOrder();
     }, []);
 
     return  <div className="flex max-h-[96%] min-h-[96%] h-[96%] max-w-[77%] min-w-[77%] w-[77%] bg-[#0d0f10] fixed right-[1rem] top-[1rem] rounded-md flex-col items-center py-24 px-24 pb-12 ">
@@ -44,8 +57,9 @@ export function OrderList() {
                         </tbody>
                     </table>
                 </div>
+                {usuarioEsJefe && 
                 <Link href= "/order/orderId">
                     <button className="rounded-full w-[15rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] right-[3rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10]">Añadir</button>
-                </Link>
+                </Link>}
             </div>
 }

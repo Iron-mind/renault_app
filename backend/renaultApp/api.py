@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import request
 #Serializers
 from .serializers import (
     CarSerializer, ClientSerializer, ClientLoginSerializer,StaffSerializer,
@@ -45,6 +46,11 @@ class QuotationViewSet(viewsets.ModelViewSet):
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all().order_by("startTime")
+    serializer_class = OrderSerializer
+
+class OrderEspecificViewSet(viewsets.ModelViewSet):
+    email = request.data.get('email')
+    queryset = Order.objects.filter(email=email).order_by('startTime')
     serializer_class = OrderSerializer
 
 class PaymentViewSet(viewsets.ModelViewSet):
