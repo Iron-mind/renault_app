@@ -25,6 +25,15 @@ const Navbar = () => {
           <Link href="/cars">Vehículos</Link>
         </li>
         <li className={styles.navItem}>
+          <Link href="/part">Inventario</Link>
+        </li>
+        <li className={styles.navItem}>
+          <Link href="/quotation">Cotización</Link>
+        </li>
+        <li className={styles.navItem}>
+          <Link href="/quotation/createQuotation">Crear Cotización</Link>
+        </li>
+        <li className={styles.navItem}>
           <Link href="/contacto">Contacto</Link>
         </li>
       </ul>
