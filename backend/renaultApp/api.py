@@ -49,8 +49,9 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
 
 class OrderEspecificViewSet(viewsets.ModelViewSet):
-    email = request.data.get('email')
-    queryset = Order.objects.filter(email=email).order_by('startTime')
+    #email = request.data.get('email')
+    #queryset = Order.objects.filter(email=email).order_by('startTime')
+    queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
 class PaymentViewSet(viewsets.ModelViewSet):
