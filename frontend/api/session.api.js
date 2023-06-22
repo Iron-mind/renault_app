@@ -1,5 +1,5 @@
 import axios from 'axios';
-const apiLink = 'http://localhost:8000/'
+import { apiLink } from './config';
 export function loginUser(data) {
     console.log(data);
   return axios.post(`${apiLink}login/`, data);

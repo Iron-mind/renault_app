@@ -1,6 +1,6 @@
 #Django
 from django.contrib.auth import password_validation, authenticate
-
+import cloudinary.uploader
 #Django Rest Framework
 from rest_framework import serializers
 
@@ -11,6 +11,13 @@ class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = ['name', 'price', 'image', 'description', 'model', 'type']
+    def create(self, validated_data):
+        image = validated_data.pop('image')
+        car = Car.objects.create(**validated_data)
+        response = cloudinary.uploader.upload(image)
+        car.image = response['url']
+        car.save()
+        return car
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
