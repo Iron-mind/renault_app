@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { getAllCars } from "../../api/car.api";
 
 export default function Cars() {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState({ name: "", type: "any" });
   const [cars, setCars] = useState([]);
   function handleInputChange(event) {
-    setInput(event.target.value);
+    setInput({ ...input, [event.target.name]: event.target.value });
   }
   function handleSearch() {
-    getAllCars({ name: input }).then((res) => {
+    getAllCars({ name: input.name, type:input.type }).then((res) => {
       setCars(res.data);
     }
     );
@@ -22,6 +22,7 @@ export default function Cars() {
     }
     fetchData();
   }, []);
+  
  
   return (
     <div
@@ -33,7 +34,8 @@ export default function Cars() {
           className="border border-gray-300 rounded-l px-4 py-2 focus:outline-none"
           type="text"
           placeholder="Buscar..."
-          value={input}
+          value={input.name}
+          name="name"
           onChange={handleInputChange}
         />
         <button
@@ -42,6 +44,20 @@ export default function Cars() {
         >
           Buscar
         </button>
+      </div>
+      <div className="flex items-center justify-center py-2">
+        <select onChange={handleInputChange} name='type' value={input.type } className="border border-gray-300 rounded-l px-4 py-2 focus:outline-none">
+          <option value="SU">SUV</option>
+          <option value="HB">Hatchback</option>
+          <option value="CT">Convertible</option>
+          <option value="SD">Sedán</option>
+          <option value="CP">Camioneta pickup</option>
+          <option value="MV">Minivan</option>
+          <option value="CO">Coupé</option>
+          <option value="SW">Station Wagon</option>
+          <option value="DP">Deportivo</option>
+          <option value="any">Cualquier Modelo</option>
+        </select>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {cars.map((car, index) => (
