@@ -11,3 +11,9 @@ export function registerUser(data, type='client') {
     alert(err.message);
   });
 }
+
+export function registerStaff(data, type='staff') {
+  return axios.post(`${apiLink+type}/`, data).catch(err => {
+    alert(err.message);
+  });
+}
