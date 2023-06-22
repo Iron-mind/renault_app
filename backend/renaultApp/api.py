@@ -23,12 +23,12 @@ class CarViewSet(viewsets.ModelViewSet):
         queryset = super().get_queryset()
         name = self.request.query_params.get('name', None)
         price = self.request.query_params.get('price', None)
-        model = self.request.query_params.get('model', None)
+        type = self.request.query_params.get('type', None)
         
         if name:
             queryset = queryset.filter(Q(name__icontains=name))
-        if model:
-            queryset = queryset.filter(model=model)
+        if type:
+            queryset = queryset.filter(type=type)
         if price:
             queryset = queryset.filter(price=price)
         
