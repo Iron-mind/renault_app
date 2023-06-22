@@ -5,7 +5,7 @@ import AuthChecker from "../components/AuthChecker";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div>
+    <div className="flex ">
       <AuthChecker>
         <Navbar />
         <Component {...pageProps} />

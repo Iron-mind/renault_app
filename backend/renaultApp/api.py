@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.models import Q
 #Serializers
 from .serializers import (
     CarSerializer, ClientSerializer, ClientLoginSerializer,StaffSerializer,
@@ -18,6 +19,20 @@ from .models import Car, Client, Staff, Concessionaire, Parts, Demand, Quotation
 class CarViewSet(viewsets.ModelViewSet):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        name = self.request.query_params.get('name', None)
+        price = self.request.query_params.get('price', None)
+        model = self.request.query_params.get('model', None)
+        
+        if name:
+            queryset = queryset.filter(Q(name__icontains=name))
+        if model:
+            queryset = queryset.filter(model=model)
+        if price:
+            queryset = queryset.filter(price=price)
+        
+        return queryset
 
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
@@ -52,7 +67,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
 
 
-class LoginViewSet(viewsets.LoginModelViewSet):
+class LoginViewSet(viewsets.ModelViewSet):
     serializer_class = ClientLoginSerializer
 
 #     @action(detail=False, methods=['post'])

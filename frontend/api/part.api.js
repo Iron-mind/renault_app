@@ -1,9 +1,9 @@
 import axios from 'axios'
-const apiLink = 'http://localhost:8000/'
+import { apiLink } from './config'
 export const getAllParts = () => {
-    return axios.get('http://localhost:8000/parts/')
+    return axios.get(apiLink+'parts/')
 }
 
 export const getPart = (id) => {
-    return axios.get(`http://localhost:8000/parts/${id}/`)
+    return axios.get(apiLink+`parts/${id}/`)
 }

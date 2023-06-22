@@ -1,0 +1,64 @@
+[{
+    "name": "Renaul Twizy",
+    "price": 32000000,
+    "image": "http://res.cloudinary.com/dl0sjzpfb/image/upload/v1687280449/txjqvvsdg4skhltn91tu.webp",
+    "description": "carrito versatil",
+    "model": "2009",
+    "type": "DP"
+},
+{
+    "name": "Renault Zoe E-Tech",
+    "price": 39000000,
+    "image": "http://res.cloudinary.com/dl0sjzpfb/image/upload/v1687280825/cwjvfm4ipxfktvk3eda2.webp",
+    "description": "Carro familiar",
+    "model": "2019",
+    "type": "SW"
+},
+{
+    "name": "Renault  Kangoo E-Tech",
+    "price": 47000000,
+    "image": "http://res.cloudinary.com/dl0sjzpfb/image/upload/v1687281055/pyfputnfxuwc2woodyta.webp",
+    "description": "Carro mega familiar",
+    "model": "2022",
+    "type": "MV"
+},
+{
+    "name": "Renault Model 3",
+    "price": 67000000,
+    "image": "http://res.cloudinary.com/dl0sjzpfb/image/upload/v1687281347/dxqzkgr9y4t1qsvkj4ug.jpg",
+    "description": "Carro citadino",
+    "model": "2022",
+    "type": "DP"
+},
+{
+    "name": "Renault Model Y",
+    "price": 67000000,
+    "image": "http://res.cloudinary.com/dl0sjzpfb/image/upload/v1687281439/sbo3yioblpbsunmowjmc.jpg",
+    "description": "Carro mega familiar para carretera",
+    "model": "2022",
+    "type": "HB"
+},
+{
+    "name": "Renault Model S",
+    "price": 57000000,
+    "image": "http://res.cloudinary.com/dl0sjzpfb/image/upload/v1687285017/xokqoqqjteiwfufngoh0.jpg",
+    "description": "Carro semideportivo para carretera",
+    "model": "2022",
+    "type": "DP"
+},
+{
+    "name": "Renault Model S",
+    "price": 57000000,
+    "image": "http://res.cloudinary.com/dl0sjzpfb/image/upload/v1687285078/xv75wtarqk36g6etu7ml.jpg",
+    "description": "Carro semideportivo para carretera",
+    "model": "2022",
+    "type": "DP"
+},
+{
+    "name": "Renault Model x",
+    "price": 77000000,
+    "image": "http://res.cloudinary.com/dl0sjzpfb/image/upload/v1687285215/kqvjnxr1gf4ho9rzn9sq.jpg",
+    "description": "Carro semideportivo para carretera",
+    "model": "2022",
+    "type": "DP"
+}]
