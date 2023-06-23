@@ -69,6 +69,7 @@ export default function Cars() {
           <p className="text-gray-500 text-sm">{car.model}</p>
           <p className="text-gray-500 text-sm">{car.type}</p>
           <button className="bg-blue-500 my-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ml-auto">Pedir cotización</button> 
+          <button className="bg-blue-500 my-2 mx-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ">Vender</button>
         </div>
       ))}
     </div>
