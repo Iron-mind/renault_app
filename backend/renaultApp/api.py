@@ -41,43 +41,6 @@ class ClientViewSet(viewsets.ModelViewSet):
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
     serializer_class = StaffSerializer
-    
-    """
-    @action(methods=['post'], detail=False)
-    def guardar_imagen(self, request):
-        # Obtener el diccionario JSON enviado en la solicitud POST
-        json_data = request.data
-
-        # Obtener la ruta del archivo y otros atributos necesarios
-        file_path = json_data['image']['File path']
-        image_name = json_data['image']['name']
-        image_type = json_data['image']['type']
-
-        # Cargar la imagen en Cloudinary
-        cloudinary_response = upload(file_path, public_id=image_name)
-
-        # Acceder a la URL de la imagen subida a Cloudinary
-        image_url = cloudinary_response['secure_url']
-
-        # Crear una nueva instancia del modelo Staff
-        staff = Staff()
-        staff.image = image_url
-
-        # Puedes establecer otros atributos del modelo Staff según tus necesidades
-        staff.jobTitle = json_data['jobTitle']
-        staff.userName = json_data['username']
-        staff.name = json_data['name']
-        staff.email = json_data['email']
-        staff.address = json_data['address']
-        staff.phone = json_data['phone']
-        staff.password = json_data['password']
-
-        # Guardar el modelo Staff en la base de datos
-        staff.save()
-
-        # Devolver una respuesta JSON con la URL de la imagen
-        return Response({'image_url': image_url})
-    """
 
 class ConcessionaireViewSet(viewsets.ModelViewSet):
     queryset = Concessionaire.objects.all()

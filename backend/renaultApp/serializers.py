@@ -66,9 +66,8 @@ class StaffSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         image = validated_data.pop('image')
-        response = cloudinary.uploader.upload(image)
+        response = cloudinary.uploader.upload(image, folder='staff')
         validated_data['image'] = response['url']
-
         staff = Staff.objects.create(**validated_data)
         staff.save()
         return staff

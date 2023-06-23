@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { registerUser, registerStaff } from "../api/session.api";
 import { useDropzone } from 'react-dropzone';
 
@@ -18,6 +18,7 @@ export default function Register({ setRegisterOn }) {
    const valor2 = diccionario.clave2;
    const valor3 = diccionario.clave3;
 
+  //para los clientes
   let [inputClient, setInputClient] = useState({
     username: "",
     name: "",
@@ -27,6 +28,7 @@ export default function Register({ setRegisterOn }) {
     password: "",
   });
 
+  //para el staff
   let [inputStaff, setInputStaff] = useState({
     username: "",
     name: "",
@@ -46,7 +48,6 @@ export default function Register({ setRegisterOn }) {
       setInputStaff({
         ...inputStaff,
         [e.target.name]: e.target.value,
-        
       });
     }else{
       setInputClient({
@@ -54,8 +55,10 @@ export default function Register({ setRegisterOn }) {
         [e.target.name]: e.target.value,
       });
     }
+    console.log(inputStaff)
   }
 
+  //subida del formulario
   function handleSubmit(e) {
     console.log(inputStaff)
     e.preventDefault();
@@ -78,16 +81,23 @@ export default function Register({ setRegisterOn }) {
     }
   }
   
-  const onDrop = (acceptedFiles) => {
-    setInputStaff({
-      ...inputStaff,
-      image: acceptedFiles[0],
-    });
-  };
-
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
-
+  //Verifica la imagen enviada, la transforma en otro formato y lo manda al staff
+  const onDrop = useCallback((acceptedFiles, rejectFiles) => {
+    console.log(inputStaff)
+    const reader = new FileReader()
+    reader.onload = () =>{
+      setInputStaff({
+        ...inputStaff,
+        image: reader.result,
+      });
+      
+    }
+    reader.readAsDataURL(acceptedFiles[0])
+  }, [inputStaff])
   
+  //Uso del dropzone para la imagen
+  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept:'image/*', });
+
   return (
     <div className="max-w-md mx-auto">
       {!loading?
@@ -202,7 +212,9 @@ export default function Register({ setRegisterOn }) {
               id="jobTitle"
               name="jobTitle"
               onChange={handleInputClientChange}
+              value={inputStaff.jobTitle}
             >
+              <option disabled value="" defaultValue>Selecciona una opción</option>
               <option value="GE">{valor1}</option>
               <option value="JT">{valor2}</option>
               <option value="VE">{valor3}</option>
@@ -220,12 +232,10 @@ export default function Register({ setRegisterOn }) {
           <div {...getRootProps()} className="shadow  border rounded w-full py-2 px-3 appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             <input 
               {...getInputProps()} 
-              type="file"
-              accept="image/*"
               id="image"
               name="image"
             />
-            <p>Arrastra aqui tu foto de perfil o da clic para buscarlo en los archivos</p>
+            <p>Da clic para buscar la imagen en los archivos</p>
           </div>
         </div>
         }                
