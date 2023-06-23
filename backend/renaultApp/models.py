@@ -18,8 +18,9 @@ class Car(models.Model):
     ]
     name = models.CharField(max_length=70)
     price = models.IntegerField(default=0)
-    image = cloudinary.models.CloudinaryField(
-        folder='media/images/', overwrite=True, resource_type='', blank=True)
+    image = models.TextField(default='https://www.elcarrocolombiano.com/wp-content/uploads/2021/02/20210211-RENAULT-ZOE-2021-COLOMBIA-PRECIO-CARACTERISTICAS-ELECTRICO-01.jpg')
+    # cloudinary.models.CloudinaryField(
+    #     folder='media/images/', overwrite=True, resource_type='', blank=True)
     description = models.TextField(default="descripción aqui")
     model = models.CharField(max_length=20, default="modelo")
     type = models.CharField(max_length=3, choices=CAR_OF_TYPE)
@@ -64,8 +65,7 @@ class Staff(User):
         ("VE","Vendedor"),
     ]
     jobTitle = models.CharField(max_length=2, choices=JOB_TITLE)
-    image = cloudinary.models.CloudinaryField(
-        folder='media/staffImage/', overwrite=True, resource_type='', blank=True)
+    image = models.TextField()
     
     def __str__(self):
         return self.name

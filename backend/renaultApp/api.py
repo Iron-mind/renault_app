@@ -11,7 +11,7 @@ from .serializers import (
     ConcessionaireSerializer, PartsSerializer, DemandSerializer,
     QuotationSerializer, OrderSerializer, PaymentSerializer
 )
-
+from cloudinary.uploader import upload
 #Models
 from .models import Car, Client, Staff, Concessionaire, Parts, Demand, Quotation, Order, Payment
 
@@ -19,6 +19,20 @@ from .models import Car, Client, Staff, Concessionaire, Parts, Demand, Quotation
 class CarViewSet(viewsets.ModelViewSet):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        name = self.request.query_params.get('name', None)
+        price = self.request.query_params.get('price', None)
+        type = self.request.query_params.get('type', None)
+        
+        if name:
+            queryset = queryset.filter(Q(name__icontains=name))
+        if type:
+            queryset = queryset.filter(type=type)
+        if price:
+            queryset = queryset.filter(price=price)
+        
+        return queryset
 
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
