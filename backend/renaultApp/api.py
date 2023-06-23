@@ -11,7 +11,7 @@ from .serializers import (
     ConcessionaireSerializer, PartsSerializer, DemandSerializer,
     QuotationSerializer, OrderSerializer, PaymentSerializer
 )
-
+from cloudinary.uploader import upload
 #Models
 from .models import Car, Client, Staff, Concessionaire, Parts, Demand, Quotation, Order, Payment
 

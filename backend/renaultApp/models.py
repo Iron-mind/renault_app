@@ -65,8 +65,7 @@ class Staff(User):
         ("VE","Vendedor"),
     ]
     jobTitle = models.CharField(max_length=2, choices=JOB_TITLE)
-    image = cloudinary.models.CloudinaryField(
-        folder='media/staffImage/', overwrite=True, resource_type='', blank=True)
+    image = models.TextField()
     
     def __str__(self):
         return self.name
