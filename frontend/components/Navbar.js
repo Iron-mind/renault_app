@@ -38,12 +38,19 @@ const Navbar = () => {
         <li className={styles.navItem}>
           <Link href="/cars">Vehículos</Link>
         </li>
+        {jobTitle !== "" && (
         <li className={styles.navItem}>
           <Link href="/part">Inventario</Link>
         </li>
+        )}
         <li className={styles.navItem}>
           <Link href="/quotation">Cotización</Link>
         </li>
+        {jobTitle !== "" && (
+        <li className={styles.navItem}>
+          <Link href="/clients">Clientes</Link>
+        </li>
+        )}
         
         {jobTitle === "GE" && (
           <li className={styles.navItem}>
