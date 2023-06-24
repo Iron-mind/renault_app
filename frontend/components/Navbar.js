@@ -23,6 +23,7 @@ const Navbar = () => {
         <li className={styles.navItem}>
           <Link href="/">
             <Image 
+              alt="Renault Logo"
               src={'/images/logo.webp'} 
               width={45} height={35} 
               style={{backgroundColor:'white', display:'inline'}}/>

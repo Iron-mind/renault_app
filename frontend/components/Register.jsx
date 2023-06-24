@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { registerUser, registerStaff } from "../api/session.api";
+import { registerUser } from "../api/session.api";
 import { useDropzone } from 'react-dropzone';
 
 
@@ -64,7 +64,7 @@ export default function Register({ setRegisterOn }) {
     e.preventDefault();
     setLoading(true);
     if(esGerente){
-      registerStaff(inputStaff).then((res) => {
+      registerUser(inputStaff, 'staff').then((res) => {
         alert("Ya puedes iniciar sesión");
         setRegisterOn(false);
       }).finally(() => {
