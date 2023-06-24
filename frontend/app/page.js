@@ -5,8 +5,8 @@ export default function Home() {
     <div>
       <header>
         {/* Navbar */}
-        <nav>
-          <ul>
+        <nav class="flex justify-between items-center">
+          <ul class="flex space-x-4">
             <li>
               <a href="/home">Inicio</a>
             </li>
@@ -20,6 +20,11 @@ export default function Home() {
               <a href="#footer">Contacto</a>
             </li>
           </ul>
+          <div>
+            <a href="/login" class="ml-4 text-black">
+              Iniciar Sesión
+            </a>
+          </div>
         </nav>
       </header>
       <section className="banner h-30 relative">
@@ -31,7 +36,7 @@ export default function Home() {
       </section>
 
       <main className="flex min-h-screen flex-col items-center justify-between p-24 w-full  ">
-        <section id='contenido' className="  p-8">
+        <section id="contenido" className="  p-8">
           <h1 className="text-4xl font-bold mb-4">
             Construyendo un futuro eléctrico
           </h1>

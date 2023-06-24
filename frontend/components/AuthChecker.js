@@ -16,6 +16,8 @@ const AuthChecker = ({ children }) => {
     const stringDate = token?.split(";")[1]
     const role = token?.split(";")[2]
     localStorage.setItem("role", role)
+    const jobTitle = token?.split(";")[3]
+    localStorage.setItem("jobTitle", jobTitle)
     let fechaActual = new Date();
 
     // Crear la fecha objetivo a partir del string proporcionado

@@ -50,7 +50,11 @@ def login(request):
     # today date
     date = datetime.datetime.now()
     date_str = date.strftime("%Y-%m-%d")
-    token = 'b93f32b520'+str(user.username) + ";" +date_str+ ";" +role
+    jobTitle = ''
+    if (hasattr(user, 'jobTitle')):
+       
+        jobTitle = user.jobTitle
+    token = 'b93f32b520'+str(user.username) + ";" +date_str+ ";" +role + ";" +jobTitle
 
     return Response(token, status=status.HTTP_200_OK)
 
