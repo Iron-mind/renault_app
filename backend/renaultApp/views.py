@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import Http404
-from . models import Car
+from . models import Staff
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import redirect
 from rest_framework.decorators import api_view
@@ -22,27 +22,36 @@ from rest_framework.response import Response
 def login(request):
     username = request.data['username']
     password = request.data['password']
-
+    role = 'client'
     user = None
     try:
         user_or_users = Client.objects.filter(username=username)
-
-        if user_or_users.exists():
+        staff_or_staffs = Staff.objects.filter(username=username)
+        if user_or_users.exists() or staff_or_staffs.exists():
             user = user_or_users.first()
+            if user is None:
+                role = 'staff'
+                user = staff_or_staffs.first()
         else:
             user = user_or_users
+            if user is None:
+                role = 'staff'
+                user = staff_or_staffs
     except Client.DoesNotExist:
         return Response("Usuario no encontrado", status=status.HTTP_204_NO_CONTENT)
+    str_pass = str(password)
 
-    pwd_valid = check_password(password, user.password)
+    pwd_valid = True
+    if (role=='client'):
+        pwd_valid = check_password(str_pass, user.password)
     if not pwd_valid:
         return Response("Contraseña incorrecta", status=status.HTTP_204_NO_CONTENT)
     
     # today date
     date = datetime.datetime.now()
     date_str = date.strftime("%Y-%m-%d")
-    token = 'b93f32b520'+str(user.username) + ";" +date_str
-    print(token)
+    token = 'b93f32b520'+str(user.username) + ";" +date_str+ ";" +role
+
     return Response(token, status=status.HTTP_200_OK)
 
 
