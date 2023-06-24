@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ['username', 'name', 'address', 'phone', 'paymentType', 'password']
+        fields = ['username', 'name', 'address', 'phone', 'paymentType', 'password', 'id']
         extra_kwargs = {
             'username': {'required': True},
             'name': {'required': False},

@@ -1,27 +1,41 @@
 import { useEffect, useState } from "react";
 import { getAllCars } from "../../api/car.api";
+import { set } from "react-hook-form";
+import LoadingSpinner from "../../components/Loading";
 
 export default function Cars() {
   const [input, setInput] = useState({ name: "", type: "any" });
   const [cars, setCars] = useState([]);
-  const [userRole, setUserRole] = useState('');
+  const [userRole, setUserRole] = useState("");
+  const [loading, setLoading] = useState(false);
   function handleInputChange(event) {
     setInput({ ...input, [event.target.name]: event.target.value });
   }
   function handleSearch() {
-    getAllCars({ name: input.name, type: input.type }).then((res) => {
-      setCars(res.data);
-    });
+    setLoading(true);
+   
+    let query =  {  }
+    if(input.name) query['name'] = input.name
+    if(input.type !== 'any') query['type'] = input.type
+    getAllCars(query)
+      .then((res) => {
+        setCars(res.data);
+        setLoading(false);
+        setInput({ name: "", type: input.type });
+      })
+      .finally(() => setLoading(false));
   }
 
   useEffect(() => {
+    setInput({ name: "", type: "any" });
     function fetchData() {
       getAllCars().then((res) => {
         setCars(res.data);
+        setLoading(false);
       });
     }
     fetchData();
-    localStorage.getItem("role") && setUserRole(localStorage.getItem("role"))
+    localStorage.getItem("role") && setUserRole(localStorage.getItem("role"));
   }, []);
 
   return (
@@ -64,29 +78,35 @@ export default function Cars() {
           <option value="any">Cualquier Modelo</option>
         </select>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {cars.map((car, index) => (
-          <div
-            key={index}
-            className="bg-white shadow-lg p-4 rounded overflow-hidden"
-          >
-            <img src={car.image} alt={car.name} className="w-full h-60" />
-            <h3 className="text-xl font-bold mb-2">{car.name}</h3>
-            <p className="text-gray-600 mb-2">${car.price}</p>
-            <p className="text-gray-500 text-sm mb-4">{car.description}</p>
-            <p className="text-gray-500 text-sm">{car.model}</p>
-            <p className="text-gray-500 text-sm">{car.type}</p>
-            {userRole == "client" && <button className="bg-blue-500 my-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ml-auto">
-              Pedir cotización
-            </button>}
-            {userRole == "staff" && (
-              <button className="bg-blue-500 my-2 mx-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ">
-                Vender
-              </button>
-            )}{" "}
-          </div>
-        ))}
-      </div>
+      {!loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {cars.map((car, index) => (
+            <div
+              key={index}
+              className="bg-white shadow-lg p-4 rounded overflow-hidden"
+            >
+              <img src={car.image} alt={car.name} className="w-full h-60" />
+              <h3 className="text-xl font-bold mb-2">{car.name}</h3>
+              <p className="text-gray-600 mb-2">${car.price}</p>
+              <p className="text-gray-500 text-sm mb-4">{car.description}</p>
+              <p className="text-gray-500 text-sm">{car.model}</p>
+              <p className="text-gray-500 text-sm">{car.type}</p>
+              {userRole == "client" && (
+                <button className="bg-blue-500 my-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ml-auto">
+                  Pedir cotización
+                </button>
+              )}
+              {userRole == "staff" && (
+                <button className="bg-blue-500 my-2 mx-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ">
+                  Vender
+                </button>
+              )}{" "}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <LoadingSpinner />
+      )}
     </div>
   );
 }
