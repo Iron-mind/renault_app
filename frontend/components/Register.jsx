@@ -1,12 +1,14 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { registerUser } from "../api/session.api";
 import { useDropzone } from 'react-dropzone';
+import { set } from "react-hook-form";
 
 
 export default function Register({ setRegisterOn }) {
 
   //booleano auxiliar para crear el registro para el staff
-  const esGerente=true
+
+  const [esGerente, setEsGerente] = useState(false);
   const diccionario = {
     clave1: "Gerente",
     clave2: "Jefe de Taller",
@@ -41,7 +43,10 @@ export default function Register({ setRegisterOn }) {
   });
 
   let [loading, setLoading] = useState(false); 
-
+  useEffect(() => {
+    const jobTitle = localStorage.getItem("jobTitle");
+    setEsGerente(jobTitle === "GE");
+  }, [])
   //Funcion para el cliente
   function handleInputClientChange(e) {
     if(esGerente){
@@ -109,7 +114,7 @@ export default function Register({ setRegisterOn }) {
           >
             Nombre
           </label>
-          {esGerente}
+         
           <input
             onChange={handleInputClientChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
