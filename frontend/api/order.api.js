@@ -27,3 +27,11 @@ export const createOrder = (task) => {
 export const deleteOrder = (id) => {
     return orderApi.delete(`/${id}/`)
 }
+
+export const getWorker = (data) => {
+    return axios.get('http://localhost:8000/staffSeller/', {params: data})
+}
+
+export const getClient = (data) => {
+    return axios.get('http://localhost:8000/client/', {params: data})
+}

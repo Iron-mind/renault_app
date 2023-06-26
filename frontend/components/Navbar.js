@@ -43,7 +43,7 @@ const Navbar = () => {
           <Link href="/order">Ordenes de Trabajo</Link>
         </li>
         <li className={styles.navItem}>
-          <Link href="/contacto">Contacto</Link>
+          <Link href="/demand">Crear Peticion</Link>
         </li>
       </ul>
       {!authored ? (

@@ -1,6 +1,8 @@
 #Django
 from django.contrib.auth import password_validation, authenticate
 import cloudinary.uploader
+from datetime import date
+
 #Django Rest Framework
 from rest_framework import serializers
 #imagenes
@@ -30,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ['username', 'name', 'address', 'phone', 'paymentType', 'password']
+        fields = '__all__'
         extra_kwargs = {
             'username': {'required': True},
             'name': {'required': False},
@@ -99,6 +101,17 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+    
+    def create(self, validated_data):
+        #Obtiene la fecha
+        fecha = date.today()
+        validated_data['startTime'] = fecha
+        order = Order.objects.create(**validated_data)
+
+        #Guarda el objeto
+        order.save()
+        return order
+    
 
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
