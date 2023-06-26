@@ -23,6 +23,7 @@ const Login = () => {
           console.log(res.data)
           localStorage.setItem("authored", "true");
           localStorage.setItem("token", res.data);
+          router.push("/cars");
           router.push("/home");
         }else{
           alert('Verifica las credenciales');

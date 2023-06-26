@@ -14,6 +14,10 @@ const AuthChecker = ({ children }) => {
     const isAuthenticated = JSON.parse(localStorage.getItem("authored")); // Reemplaza esto con tu lógica de autenticación
     const token = localStorage.getItem("token");
     const stringDate = token?.split(";")[1]
+    const role = token?.split(";")[2]
+    localStorage.setItem("role", role)
+    const jobTitle = token?.split(";")[3]
+    localStorage.setItem("jobTitle", jobTitle)
     let fechaActual = new Date();
 
     // Crear la fecha objetivo a partir del string proporcionado

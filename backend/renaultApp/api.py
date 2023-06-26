@@ -39,6 +39,13 @@ class CarViewSet(viewsets.ModelViewSet):
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        name = self.request.query_params.get('name', None)
+        if name:
+            queryset = queryset.filter(Q(name__icontains=name))
+
+        return queryset
 
     def get_queryset(self):
         queryset = super().get_queryset()

@@ -8,10 +8,13 @@ import styles from "../styles/navbar.module.css";
 
 const Navbar = () => {
   const [authored, setAuthored] = React.useState(false);
+  const [jobTitle, setJobTitle] = React.useState("VE");
   const router = useRouter();
   useEffect(() => {
     const isAuthenticated = JSON.parse(localStorage.getItem("authored")); // Reemplaza esto con tu lógica de autenticación
     setAuthored(isAuthenticated);
+    const jobTitle = localStorage.getItem("jobTitle");
+    setJobTitle(jobTitle);
   }, [router]);
   function logOut() {
     localStorage.removeItem("authored");
@@ -22,39 +25,47 @@ const Navbar = () => {
       <ul className={styles.navList}>
         <li className={styles.navItem}>
           <Link href="/">
-            <Image 
-              src={'/images/logo.webp'} 
-              width={45} height={35} 
-              style={{backgroundColor:'white', display:'inline'}}/>
-              <span className={styles.navLogo}> Renault</span>
-             
+            <Image
+              alt="Renault Logo"
+              src={"/images/logo.webp"}
+              width={45}
+              height={35}
+              style={{ backgroundColor: "white", display: "inline" }}
+            />
+            <span className={styles.navLogo}> Renault</span>
           </Link>
         </li>
         <li className={styles.navItem}>
           <Link href="/cars">Vehículos</Link>
         </li>
+        {jobTitle !== "" && (
         <li className={styles.navItem}>
           <Link href="/part">Inventario</Link>
         </li>
+        )}
         <li className={styles.navItem}>
           <Link href="/quotation">Cotización</Link>
         </li>
+        {jobTitle !== "" && (
         <li className={styles.navItem}>
-          <Link href="/order">Ordenes de Trabajo</Link>
+          <Link href="/clients">Clientes</Link>
         </li>
-        <li className={styles.navItem}>
-          <Link href="/demand">Crear Peticion</Link>
-        </li>
+        )}
+        
+        {jobTitle === "GE" && (
+          <li className={styles.navItem}>
+            <Link href="/register">Registrar staff</Link>
+          </li>
+        )}
+        {jobTitle === "" && (
+          <li className={styles.navItem}>
+            <Link href="/order">Ordenes de Trabajo</Link>
+          </li>
+        )}
       </ul>
-      {!authored ? (
-        <div className={styles.navAuth}>
-          <Link href="/login">Iniciar sesión</Link>
-        </div>
-      ) : (
-        <div onClick={logOut} className={styles.navAuth}>
-          <Link href="/">Cerrar sesión</Link>
-        </div>
-      )}
+      <div onClick={logOut} className={styles.navAuth}>
+        <Link href="/">Cerrar sesión</Link>
+      </div>
     </nav>
   );
 };
