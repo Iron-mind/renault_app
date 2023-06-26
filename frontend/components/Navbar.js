@@ -36,6 +36,9 @@ const Navbar = () => {
           </Link>
         </li>
         <li className={styles.navItem}>
+          <Link href="/home">Inicio</Link>
+        </li>
+        <li className={styles.navItem}>
           <Link href="/cars">Vehículos</Link>
         </li>
         {jobTitle !== "" && (

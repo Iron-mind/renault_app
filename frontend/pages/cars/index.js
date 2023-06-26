@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { getAllCars } from "../../api/car.api";
-import { set } from "react-hook-form";
 import LoadingSpinner from "../../components/Loading";
 
 export default function Cars() {
   const [input, setInput] = useState({ name: "", type: "any" });
   const [cars, setCars] = useState([]);
   const [userRole, setUserRole] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   function handleInputChange(event) {
     setInput({ ...input, [event.target.name]: event.target.value });
   }
