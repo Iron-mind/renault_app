@@ -58,9 +58,9 @@ const Navbar = () => {
           </li>
         )}
         {jobTitle === "" && (
-        <li className={styles.navItem}>
-          <Link href="/contacto">Contacto</Link>
-        </li>
+          <li className={styles.navItem}>
+            <Link href="/order">Ordenes de Trabajo</Link>
+          </li>
         )}
       </ul>
       <div onClick={logOut} className={styles.navAuth}>

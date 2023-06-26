@@ -1,6 +1,8 @@
 #Django
 from django.contrib.auth import password_validation, authenticate
 import cloudinary.uploader
+from datetime import date
+
 #Django Rest Framework
 from rest_framework import serializers
 #imagenes
@@ -99,6 +101,17 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+    
+    def create(self, validated_data):
+        #Obtiene la fecha
+        fecha = date.today()
+        validated_data['startTime'] = fecha
+        order = Order.objects.create(**validated_data)
+
+        #Guarda el objeto
+        order.save()
+        return order
+    
 
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
