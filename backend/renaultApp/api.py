@@ -26,14 +26,16 @@ class CarViewSet(viewsets.ModelViewSet):
         name = self.request.query_params.get('name', None)
         price = self.request.query_params.get('price', None)
         type = self.request.query_params.get('type', None)
-        
+        id = self.request.query_params.get('id', None)
+
         if name:
             queryset = queryset.filter(Q(name__icontains=name))
         if type:
             queryset = queryset.filter(type=type)
         if price:
             queryset = queryset.filter(price=price)
-        
+        if id != None :
+            queryset = queryset.filter(id=id)
         return queryset
 
 class ClientViewSet(viewsets.ModelViewSet):

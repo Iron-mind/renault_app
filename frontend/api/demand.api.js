@@ -4,12 +4,17 @@ const demandApi = axios.create({
     baseURL:'http://localhost:8000/demand/',
 });
 
+
 export const createDemand = (task) => {
     return demandApi.post('/', task)
 }
 
 export const editDemand = (id, task) => {
     return demandApi.put(`/${id}/`, task)
+}
+
+export const deleteDemand = (id) => {
+    return demandApi.delete(`/${id}/`)
 }
 
 export const getDemand = (data) => {
