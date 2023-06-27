@@ -1,7 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { registerUser } from "../api/session.api";
 import { useDropzone } from 'react-dropzone';
-import { set } from "react-hook-form";
 
 
 export default function Register({ setRegisterOn }) {

@@ -3,7 +3,7 @@ import { getAllCars } from "../../api/car.api";
 import LoadingSpinner from "../../components/Loading";
 
 export default function Cars() {
-  const [input, setInput] = useState({ name: "", type: "any" });
+  const [input, setInput] = useState({ name: "", type: "any", price: "" });
   const [cars, setCars] = useState([]);
   const [userRole, setUserRole] = useState("");
   const [loading, setLoading] = useState(true);
@@ -12,15 +12,16 @@ export default function Cars() {
   }
   function handleSearch() {
     setLoading(true);
-   
-    let query =  {  }
-    if(input.name) query['name'] = input.name
-    if(input.type !== 'any') query['type'] = input.type
+
+    let query = {};
+    if (input.name) query["name"] = input.name;
+    if (input.type !== "any") query["type"] = input.type;
+    if (input.price) query["price"] = input.price;
     getAllCars(query)
       .then((res) => {
         setCars(res.data);
         setLoading(false);
-        setInput({ name: "", type: input.type });
+        setInput({ name: "", type: input.type , price: ""});
       })
       .finally(() => setLoading(false));
   }
@@ -51,6 +52,17 @@ export default function Cars() {
           name="name"
           onChange={handleInputChange}
         />
+        <div className="flex items-center px-2">
+
+          <input
+            className="border border-gray-300 rounded-l px-2 py-2 w-32 focus:outline-none"
+            type="text"
+            placeholder="Precio COP"
+            value={input.price}
+            name="price"
+            onChange={handleInputChange}
+          />
+        </div>
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-r"
           onClick={handleSearch}

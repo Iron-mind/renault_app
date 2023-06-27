@@ -33,7 +33,10 @@ class CarViewSet(viewsets.ModelViewSet):
         if type:
             queryset = queryset.filter(type=type)
         if price:
-            queryset = queryset.filter(price=price)
+            price = int(price)
+            min_price = price - 10000000
+            max_price = price + 10000000
+            queryset = queryset.filter(price__range=(min_price, max_price))
         if id != None :
             queryset = queryset.filter(id=id)
         return queryset
@@ -43,22 +46,43 @@ class ClientViewSet(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
     def get_queryset(self):
         queryset = super().get_queryset()
+        id = self.request.query_params.get('id', None)
+        queryset = super().get_queryset()
         name = self.request.query_params.get('name', None)
+        username = self.request.query_params.get('username', None)
+
         if name:
             queryset = queryset.filter(Q(name__icontains=name))
-
-        return queryset
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        id = self.request.query_params.get('id', None)
+        if username:
+            queryset = queryset.filter(username=username)
         if id != None :
             queryset = queryset.filter(id=id)
         return queryset
     
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
     serializer_class = StaffSerializer
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id = self.request.query_params.get('id', None)
+        username = self.request.query_params.get('username', None)
+        print('name')
+        if id != None :
+            queryset = queryset.filter(id=id)
+        elif username != None:
+            queryset = queryset.filter(username=username)
+        return queryset
 
 class StaffSellerViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.filter(jobTitle='VE')
@@ -67,8 +91,12 @@ class StaffSellerViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = super().get_queryset()
         id = self.request.query_params.get('id', None)
+        username = self.request.query_params.get('username', None)
+        print('name')
         if id != None :
             queryset = queryset.filter(id=id)
+        elif username != None:
+            queryset = queryset.filter(username=username)
         return queryset
 
 class ConcessionaireViewSet(viewsets.ModelViewSet):
