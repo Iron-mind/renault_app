@@ -32,7 +32,10 @@ class CarViewSet(viewsets.ModelViewSet):
         if type:
             queryset = queryset.filter(type=type)
         if price:
-            queryset = queryset.filter(price=price)
+            price = int(price)
+            min_price = price - 10000000
+            max_price = price + 10000000
+            queryset = queryset.filter(price__range=(min_price, max_price))
         
         return queryset
 
