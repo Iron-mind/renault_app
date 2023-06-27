@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import "../app/globals.css";
 import AuthChecker from "../components/AuthChecker";
+import WhatsAppButton from "../components/whatsappBtn";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -9,6 +10,7 @@ function MyApp({ Component, pageProps }) {
       <AuthChecker>
         <Navbar />
         <Component {...pageProps} />
+        <WhatsAppButton />
       </AuthChecker>
     </div>
   );

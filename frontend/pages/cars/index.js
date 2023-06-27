@@ -82,9 +82,10 @@ export default function Cars() {
           {cars.map((car, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg p-4 rounded overflow-hidden"
+              // style={{ width: "205px"}}
+              className="bg-white shadow-lg p-4 rounded overflow-hidden "
             >
-              <img src={car.image} alt={car.name} className="w-full h-60" />
+              <img src={car.image} alt={car.name} className="w-60 h-auto" />
               <h3 className="text-xl font-bold mb-2">{car.name}</h3>
               <p className="text-gray-600 mb-2">${car.price}</p>
               <p className="text-gray-500 text-sm mb-4">{car.description}</p>
