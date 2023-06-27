@@ -12,6 +12,12 @@ export function registerUser(data, type='client') {
   });
 }
 
+export function updateUser(data, id, type='client') {
+  return axios.put(`${apiLink+type}/${id}/`, data).catch(err => {
+    alert(err.message);
+  });
+}
+
 export function registerStaff(data, type='staff') {
   return axios.post(`${apiLink+type}/`, data).catch(err => {
     alert(err.message);

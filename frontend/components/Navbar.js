@@ -9,12 +9,19 @@ import styles from "../styles/navbar.module.css";
 const Navbar = () => {
   const [authored, setAuthored] = React.useState(false);
   const [jobTitle, setJobTitle] = React.useState("VE");
+  const [username, setUsername] = React.useState("");
   const router = useRouter();
   useEffect(() => {
     const isAuthenticated = JSON.parse(localStorage.getItem("authored")); // Reemplaza esto con tu lógica de autenticación
     setAuthored(isAuthenticated);
     const jobTitle = localStorage.getItem("jobTitle");
     setJobTitle(jobTitle);
+    const username = localStorage
+      .getItem("token")
+      ?.split("520")[1]
+      ?.split(";")[0];
+    setUsername(username);
+    localStorage.setItem("username", username);
   }, [router]);
   function logOut() {
     localStorage.removeItem("authored");
@@ -42,32 +49,34 @@ const Navbar = () => {
           <Link href="/cars">Vehículos</Link>
         </li>
         {jobTitle !== "" && (
-        <li className={styles.navItem}>
-          <Link href="/part">Inventario</Link>
-        </li>
+          <li className={styles.navItem}>
+            <Link href="/part">Inventario</Link>
+          </li>
         )}
         <li className={styles.navItem}>
           <Link href="/quotation">Cotización</Link>
         </li>
         {jobTitle !== "" && (
-        <li className={styles.navItem}>
-          <Link href="/clients">Clientes</Link>
-        </li>
+          <li className={styles.navItem}>
+            <Link href="/clients">Clientes</Link>
+          </li>
         )}
-        
+
         {jobTitle === "GE" && (
           <li className={styles.navItem}>
             <Link href="/register">Registrar staff</Link>
           </li>
         )}
-        {jobTitle === "" && (
+        {(jobTitle === "GE" || jobTitle === "JT") && (
           <li className={styles.navItem}>
             <Link href="/order">Ordenes de Trabajo</Link>
           </li>
         )}
       </ul>
-      <div onClick={logOut} className={styles.navAuth}>
-        <Link href="/">Cerrar sesión</Link>
+      <div  className={styles.navAuth}>
+        <Link  href="/profile"> <p className="text-blue-700">@{username || "Usuario"}</p> </Link>
+
+        <Link onClick={logOut} href="/">Cerrar sesión</Link>
       </div>
     </nav>
   );
