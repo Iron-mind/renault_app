@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllOrders, getEspecificOrder, getWorker } from "../api/order.api"
+import { getAllOrders, getWorker } from "../api/order.api"
 import { getDemand } from "../api/demand.api"
 import Link from "next/link";
 
@@ -43,7 +43,6 @@ export function OrderList() {
                 const order = filteredOrdersList[i];
                 const { data: demandData } = await getDemand({id:order.request});
                 demands.push(demandData[0]);
-                demandsIds.push(demandData[0].id)
             }
         }
         
@@ -99,9 +98,9 @@ export function OrderList() {
                                     <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8">{item.price}</td>
                                     <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8">{item.nameSeller}</td>
                                     <td className="border-b border-slate-200 dark:border-slate-600 p-4 w-1/3">
-                                    <div className="max-h-[250px] h-[250px] flex items-center overflow-auto pl-2 ml-2">
-                                        {item.description}
-                                    </div>
+                                        <div className="max-h-[250px] h-[250px] flex items-center overflow-auto pl-2 ml-2">
+                                            {item.description}
+                                        </div>
                                     </td>
                                     <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8 text-center">
                                         <Link href={`/order/orderId?id=${item.id}`}>

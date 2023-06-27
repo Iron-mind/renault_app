@@ -14,7 +14,7 @@ from .models import Car, User, Client, Staff, Concessionaire, Parts, Demand, Quo
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
-        fields = ['name', 'price', 'image', 'description', 'model', 'type']
+        fields = ['id', 'name', 'price', 'image', 'description', 'model', 'type' ]
     def create(self, validated_data):
         image = validated_data.pop('image')
         car = Car.objects.create(**validated_data)

@@ -72,6 +72,11 @@ const Navbar = () => {
             <Link href="/order">Ordenes de Trabajo</Link>
           </li>
         )}
+        {jobTitle === "VE" && (
+        <li className={styles.navItem}>
+          <Link href="/quotation/quotationId">Crear Cotización</Link>
+        </li>
+        )}
       </ul>
       <div  className={styles.navAuth}>
         <Link  href="/profile"> <p className="text-blue-700">@{username || "Usuario"}</p> </Link>

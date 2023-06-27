@@ -26,7 +26,8 @@ class CarViewSet(viewsets.ModelViewSet):
         name = self.request.query_params.get('name', None)
         price = self.request.query_params.get('price', None)
         type = self.request.query_params.get('type', None)
-        
+        id = self.request.query_params.get('id', None)
+
         if name:
             queryset = queryset.filter(Q(name__icontains=name))
         if type:
@@ -36,7 +37,8 @@ class CarViewSet(viewsets.ModelViewSet):
             min_price = price - 10000000
             max_price = price + 10000000
             queryset = queryset.filter(price__range=(min_price, max_price))
-        
+        if id != None :
+            queryset = queryset.filter(id=id)
         return queryset
 
 class ClientViewSet(viewsets.ModelViewSet):

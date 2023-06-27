@@ -6,7 +6,7 @@ import moment from 'moment';
 
 //Importaciones de funciones de la api
 import { editOrder, deleteOrder, getOrder, createOrder, getWorker, getClient } from "../../../api/order.api"
-import { createDemand, getAllClients, getAllSellers, getDemand, editDemand } from "../../../api/demand.api"
+import { createDemand, getAllClients, getAllSellers, getDemand, editDemand, deleteDemand } from "../../../api/demand.api"
 
 //Next.js
 import Link from "next/link";
@@ -268,8 +268,8 @@ export default function Order() {
                             onClick ={async () =>{
                                 const accepted = window.confirm('Estas seguro?')
                                 if(accepted){
-                                    await deleteDemand(idDemands)
                                     await deleteOrder(params.id);
+                                    await deleteDemand(idDemands)
                                     router.push('/order')
                         }}}>Borrar
                         </button>}    

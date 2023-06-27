@@ -90,7 +90,7 @@ class Parts(models.Model):
 class Demand(models.Model):
     worker = models.ForeignKey(Staff, on_delete=models.PROTECT)
     state = models.BooleanField(default=False)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.PROTECT)
 
 
 class Quotation(models.Model):

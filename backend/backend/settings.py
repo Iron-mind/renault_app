@@ -160,6 +160,7 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL='/'
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
@@ -174,8 +175,12 @@ CORS_ALLOW_METHODS = [
     'OPTIONS',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000'
+]
+
+CORS_ALLOW_HEADERS = [
+    'Authorization',
+    'Content-Type',
 ]
