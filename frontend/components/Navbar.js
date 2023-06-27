@@ -36,6 +36,9 @@ const Navbar = () => {
           </Link>
         </li>
         <li className={styles.navItem}>
+          <Link href="/home">Inicio</Link>
+        </li>
+        <li className={styles.navItem}>
           <Link href="/cars">Vehículos</Link>
         </li>
         {jobTitle !== "" && (
@@ -58,9 +61,9 @@ const Navbar = () => {
           </li>
         )}
         {jobTitle === "" && (
-        <li className={styles.navItem}>
-          <Link href="/contacto">Contacto</Link>
-        </li>
+          <li className={styles.navItem}>
+            <Link href="/order">Ordenes de Trabajo</Link>
+          </li>
         )}
         {jobTitle === "VE" && (
         <li className={styles.navItem}>

@@ -108,7 +108,7 @@ class Order(models.Model):
     price = models.IntegerField(default=0)
     request = models.ForeignKey(Demand, on_delete=models.PROTECT, default=Demand)
     def __str__(self):
-        return self.description
+        return self.car
 
 class Payment(models.Model):
     register = models.IntegerField(default=0)

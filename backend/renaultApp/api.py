@@ -4,7 +4,9 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import request
 from django.db.models import Q
+
 #Serializers
 from .serializers import (
     CarSerializer, ClientSerializer, ClientLoginSerializer,StaffSerializer,
@@ -45,9 +47,27 @@ class ClientViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id = self.request.query_params.get('id', None)
+        if id != None :
+            queryset = queryset.filter(id=id)
+        return queryset
+    
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
     serializer_class = StaffSerializer
+
+class StaffSellerViewSet(viewsets.ModelViewSet):
+    queryset = Staff.objects.filter(jobTitle='VE')
+    serializer_class = StaffSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id = self.request.query_params.get('id', None)
+        if id != None :
+            queryset = queryset.filter(id=id)
+        return queryset
 
 class ConcessionaireViewSet(viewsets.ModelViewSet):
     queryset = Concessionaire.objects.all()
@@ -61,11 +81,31 @@ class DemandViewSet(viewsets.ModelViewSet):
     queryset = Demand.objects.all()
     serializer_class = DemandSerializer
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        client = self.request.query_params.get('client', None)
+        worker = self.request.query_params.get('worker', None)
+        id = self.request.query_params.get('id', None)
+        
+        if client != None and worker != None:
+            queryset = queryset.filter(client=client, worker=worker )
+        if id != None :
+            queryset = queryset.filter(id=id)
+        return queryset
+    
+
 class QuotationViewSet(viewsets.ModelViewSet):
     queryset = Quotation.objects.all()
     serializer_class = QuotationSerializer
 
 class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all().order_by("-startTime")
+    serializer_class = OrderSerializer
+
+
+class OrderEspecificViewSet(viewsets.ModelViewSet):
+    #email = request.data.get('email')
+    #queryset = Order.objects.filter(email=email).order_by('startTime')
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
