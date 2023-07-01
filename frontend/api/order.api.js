@@ -12,6 +12,10 @@ export const getOrder = (id) => {
     return orderApi.get(`/${id}/`)
 }
 
+export const getOrders = (data) => {
+    return orderApi.get('/', {params: data})
+}
+
 export const getEspecificOrder = (data) => {
     return axios.get('http://localhost:8000/especificOrder/', data)
 }

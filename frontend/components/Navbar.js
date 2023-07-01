@@ -48,14 +48,21 @@ const Navbar = () => {
         <li className={styles.navItem}>
           <Link href="/cars">Vehículos</Link>
         </li>
-        {jobTitle !== "" && (
+        {jobTitle == "JE" && (
           <li className={styles.navItem}>
             <Link href="/part">Inventario</Link>
           </li>
         )}
+        {jobTitle === "" && (
         <li className={styles.navItem}>
-          <Link href="/quotation">Cotización</Link>
+          <Link href="/demand">Peticiones</Link>
         </li>
+        )}
+        {jobTitle === "VE" && (
+        <li className={styles.navItem}>
+          <Link href="/quotation">Cotizaciónes</Link>
+        </li>
+        )}
         {jobTitle !== "" && (
           <li className={styles.navItem}>
             <Link href="/clients">Clientes</Link>
@@ -72,11 +79,7 @@ const Navbar = () => {
             <Link href="/order">Ordenes de Trabajo</Link>
           </li>
         )}
-        {jobTitle === "VE" && (
-        <li className={styles.navItem}>
-          <Link href="/quotation/quotationId">Crear Cotización</Link>
-        </li>
-        )}
+        
       </ul>
       <div  className={styles.navAuth}>
         <Link  href="/profile"> <p className="text-blue-700">@{username || "Usuario"}</p> </Link>
@@ -88,3 +91,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
