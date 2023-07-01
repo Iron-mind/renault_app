@@ -9,9 +9,6 @@ export function OrderList() {
 
     let [loading, setLoading] = useState(false); 
 
-    //Confirmar si es el jefe de taller o no
-    const usuarioEsJefe = true
-
     useEffect(() => {
         setLoading(true)
         //obtiene todas las ordenes
@@ -30,21 +27,6 @@ export function OrderList() {
             demandsIds.push(demandData[0].id)
         }
         console.log('Estas son las peticiones: ', demands);
-
-        
-        //Si es un usuario, reduce la cantidad de ordenes a la de solo el cliente
-        if (!usuarioEsJefe) {
-            // Filtra las órdenes basadas en las demandas
-            const filteredOrdersList = data.filter((order) => demandsIds.includes(order.request));
-            setOrders(filteredOrdersList)
-            demands.clear()
-            demandsIds.clear()
-            for (let i = 0; i < filteredOrdersList.length; i++) {
-                const order = filteredOrdersList[i];
-                const { data: demandData } = await getDemand({id:order.request});
-                demands.push(demandData[0]);
-            }
-        }
         
         //busca los trabajadores de cada peticion y los guarda
         const workers = []
@@ -112,10 +94,9 @@ export function OrderList() {
                             </tbody>
                         </table>
                     </div>
-                    {usuarioEsJefe && 
                     <Link href= "/order/orderId">
                         <button className="rounded-full w-[15rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] right-[3rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10]">Añadir</button>
-                    </Link>}
+                    </Link>
                 </div>:
                 <div
                     className="fixed right-[40%] top-[50%] h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]"

@@ -28,3 +28,7 @@ export const getAllSellers = () => {
 export const getAllClients = () => {
     return axios.get('http://localhost:8000/client/')
 }
+
+export const getWorker = (data) => {
+    return axios.get('http://localhost:8000/staffSeller/', {params: data})
+}

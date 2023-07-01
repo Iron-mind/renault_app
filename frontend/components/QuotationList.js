@@ -7,9 +7,6 @@ export function QuotationList() {
     const [quotations, setQuotation] = useState([]);
     const [quotationModify, setQuotationModify] = useState([]);
     let [loading, setLoading] = useState(false); 
-
-    //Confirmar si es el jefe de taller o no
-    const usuarioEsVendedor = true
     
     useEffect(()=> {
         setLoading(true)
@@ -34,27 +31,6 @@ export function QuotationList() {
             const quotation = data[i];
             const { data: carData } = await getCar({id:quotation.carName});
             cars.push(carData[0]);
-        }
-
-        //Si es un usuario, reduce la cantidad de cotizaciones a la de solo el cliente
-        if (!usuarioEsVendedor) {
-            // Filtra las órdenes basadas en las demandas
-            const filteredQuotationList = data.filter((quotation) => demandsIds.includes(quotation.request));
-            setQuotation(filteredQuotationList)
-            demands.clear()
-            demandsIds.clear()
-
-            for (let i = 0; i < filteredQuotationList.length; i++) {
-                const quotation = filteredQuotationList[i];
-                const { data: demandData } = await getDemand({id:quotation.request});
-                demands.push(demandData[0]);
-            }
-
-            for (let i = 0; i < filteredQuotationList.length; i++) {
-                const quotation = filteredQuotationList[i];
-                const { data: carData } = await getCar({id:quotation.carName});
-                cars.push(carData[0]);
-            }
         }
 
         //busca los trabajadores de cada peticion y los guarda
@@ -117,10 +93,9 @@ export function QuotationList() {
                             </tbody>
                         </table>
                     </div>
-                    {usuarioEsVendedor && 
-                        <Link href= "/quotation/quotationId">
-                            <button className="rounded-full w-[15rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] right-[3rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10]">Añadir</button>
-                        </Link>}
+                    <Link href= "/quotation/quotationId">
+                        <button className="rounded-full w-[15rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] right-[3rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10]">Añadir</button>
+                    </Link>
                 </div>:
                 <div
                 className="fixed right-[40%] top-[50%] h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]"

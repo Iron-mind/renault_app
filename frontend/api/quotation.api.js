@@ -13,6 +13,10 @@ export const getQuotation = (id) => {
     return quotationApi.get(`/${id}/`)
 }
 
+export const getQuotations = (data) => {
+    return quotationApi.get(`/`, {params:data})
+}
+
 export const editQuotation = (id, data) => {
     return quotationApi.put(`/${id}/`, data)
 }

@@ -77,7 +77,6 @@ class StaffViewSet(viewsets.ModelViewSet):
         queryset = super().get_queryset()
         id = self.request.query_params.get('id', None)
         username = self.request.query_params.get('username', None)
-        print('name')
         if id != None :
             queryset = queryset.filter(id=id)
         elif username != None:
@@ -92,7 +91,6 @@ class StaffSellerViewSet(viewsets.ModelViewSet):
         queryset = super().get_queryset()
         id = self.request.query_params.get('id', None)
         username = self.request.query_params.get('username', None)
-        print('name')
         if id != None :
             queryset = queryset.filter(id=id)
         elif username != None:
@@ -121,17 +119,32 @@ class DemandViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(client=client, worker=worker )
         if id != None :
             queryset = queryset.filter(id=id)
+        if client != None:
+            queryset = queryset.filter(client=client).order_by("-id")
         return queryset
     
 
 class QuotationViewSet(viewsets.ModelViewSet):
     queryset = Quotation.objects.all()
     serializer_class = QuotationSerializer
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        request = self.request.query_params.get('request', None)        
+        if request != None :
+            queryset = queryset.filter(request=request)
+        return queryset
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all().order_by("-startTime")
     serializer_class = OrderSerializer
-
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        request = self.request.query_params.get('request', None)        
+        if request != None :
+            queryset = queryset.filter(request=request)
+        return queryset
 
 class OrderEspecificViewSet(viewsets.ModelViewSet):
     #email = request.data.get('email')
