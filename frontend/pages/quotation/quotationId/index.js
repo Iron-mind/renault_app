@@ -1,7 +1,8 @@
 //React
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import ReactToPrint from "react-to-print";
 
 //Importaciones de funciones de la api
 import {
@@ -48,6 +49,7 @@ export default function QuotationId() {
   const [mostrarVendedor, setMostrarVendedor] = useState("");
   const [mostrarCliente, setMostrarCliente] = useState("");
   const [mostrarEstado, setMostrarEstado] = useState("");
+  const componentRef = useRef();
 
   //Todo lo necesario para el formulario, se usa en la pagina web
   const {
@@ -190,7 +192,7 @@ export default function QuotationId() {
 
   //Pagina
   return (
-    <div>
+    <div >
       {!loading ? (
         <div className="flex max-h-[90%] min-h-[90%] h-[90%] max-w-[60%] min-w-[60%] w-[60%] bg-[#0d0f10] fixed right-[10rem] top-[3rem] rounded-md flex-col items-center py-24 px-24 pb-12">
           <div className="min-h-[60%] max-h-[60%] h-[60%] w-[100%]">
@@ -201,8 +203,9 @@ export default function QuotationId() {
               onSubmit={onSubmit}
               className="min-h-[100%] max-h-[100%] h-[100%] w-[100%] flex flex-col"
             >
+                <div id='printable' className="flex flex-col bg-[#0d0f10] py-12 px-24 pb-12" ref={componentRef}>
               <span className="block font-medium ">
-                Escoge el vehículo
+                Vehículo
                 <select
                   {...register("carName", { required: true })}
                   value={mostrarCarro}
@@ -239,7 +242,7 @@ export default function QuotationId() {
                 </span>
               )}
               <span className=" after:text-red-500 block font-medium ">
-                Seleccione el vendedor
+                Vendedor
                 <select
                   value={mostrarVendedor}
                   id="worker"
@@ -260,7 +263,7 @@ export default function QuotationId() {
               {mostrar && (
                 <div>
                   <span className=" after:text-red-500 block font-medium ">
-                    Escoge el cliente
+                    Cliente
                     <select
                       value={mostrarCliente}
                       id="client"
@@ -333,10 +336,16 @@ export default function QuotationId() {
                   )}
                 </div>
               )}
+              </div>
               <button className="rounded-full w-[10rem] h-[5rem] bg-[#b6f09c] absolute bottom-[3rem] right-[3rem] hover:bg-[#95c480] m-[1rem] text-[#131619] font-medium">
                 Confirmar
               </button>
             </form>
+            
+            <ReactToPrint 
+                trigger={() => <button  className="rounded-full w-[7rem] h-[3rem] bg-[#131619] absolute bottom-[3rem] right-[15rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10] font-medium">Imprimir</button>}
+                content={() => componentRef.current}
+                />
             {params.id && (
               <button
                 className="rounded-full w-[10rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] right-[16rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10] font-medium"
