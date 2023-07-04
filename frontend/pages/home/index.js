@@ -1,5 +1,6 @@
 
 import Image from 'next/image'
+import styles from '../../styles/inicio.module.css';
 
 export default function Home() {
   const testimonials = [
@@ -18,11 +19,11 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex w-auto flex-col bg-gray-100 py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Banner con imagen */}
+    <div className={styles.inicio}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 overscroll-contain overflow-auto">
+        {/* Banner con imagen */} 
         <div className="mb-8">
-          <h3 className="text-3xl text-gray-800 font-semibold mt-4">Bienvenido a Renault</h3>
+          <h3 className="text-3xl text-white font-semibold mt-10 mb-10">Bienvenido a Renault</h3>
           <img
             className="w-full h-auto rounded-lg"
             src="https://corporate.enelx.com/content/dam/global/storie-page/2021/06/benefits-of-electric-cars/desk-hero-benefits-electric-cars.jpg"
@@ -32,7 +33,7 @@ export default function Home() {
 
         {/* Sección de testimonios */}
         <div className="mb-8">
-          <h2 className="text-3xl text-gray-800 font-semibold mb-4">Testimonios</h2>
+          <h2 className="text-3xl text-white font-semibold mb-4">Testimonios</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {testimonials.map(testimonial => (
               <div key={testimonial.id} className="bg-white rounded-lg p-6 shadow">
@@ -52,9 +53,9 @@ export default function Home() {
 
         {/* Gif de pasos para cotizar */}
         <div>
-          <h2 className="text-3xl text-gray-800 font-semibold mb-4">Pide tu cotización</h2>
+          <h2 className="text-3xl text-white font-semibold mb-4">Pide tu cotización</h2>
           <img
-            className="w-full h-auto"
+            className="w-full h-auto pb-10 rounded-sm"
             src="/images/cotiza.gif"
             alt="Pasos para cotizar"
           />

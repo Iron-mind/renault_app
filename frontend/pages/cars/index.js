@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { getAllCars } from "../../api/car.api";
 import LoadingSpinner from "../../components/Loading";
+import styles from '../../styles/inicio.module.css';
 import Link from "next/link";
+
 
 export default function Cars() {
   const [input, setInput] = useState({ name: "", type: "any", price: "" });
   const [cars, setCars] = useState([]);
   const [userRole, setUserRole] = useState("");
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState(false);
+
   function handleInputChange(event) {
     setInput({ ...input, [event.target.name]: event.target.value });
   }
@@ -43,90 +47,105 @@ export default function Cars() {
     localStorage.getItem("role") && setUserRole(localStorage.getItem("role"));
   }, []);
 
-  return (
-    <div
-      style={{ color: "blue" }}
-      className="flex w-auto flex-col items-center justify-between p-14"
-    >
-      <div className="flex items-center justify-center py-2">
-        <input
-          className="border border-gray-300 rounded-l px-4 py-2 focus:outline-none"
-          type="text"
-          placeholder="Buscar..."
-          value={input.name}
-          name="name"
-          onChange={handleInputChange}
-        />
-        <div className="flex items-center px-2">
+  const handleFilterClick = () => {
+    setFilter(!filter);
+  };
 
+  return (
+    <div className={styles.inicio}>
+      <div
+        style={{ color: "#131619" }}
+        className="flex flex-col items-center justify-between sm:p-12 p-0 sm:w-auto w-[100%]"
+      >
+        <button
+          className= {`${styles.transitionButton} ${filter && styles.transitionButtonActive}`}
+          checked={filter}
+          onClick={handleFilterClick}
+          >
+          🡲 Filtra aqui 🡰
+        </button>
+        <div className={`${styles.transition} ${filter && styles.transitionActive}`}>
+          <label className="text-xl text-white font-bold mb-2" >Busca por nombre</label>
           <input
-            className="border border-gray-300 rounded-l px-2 py-2 w-32 focus:outline-none"
+            className="border border-gray-300 rounded text-[#131619] px-4 py-2 focus:outline-none lg:w-[60%]"
             type="text"
-            placeholder="Precio COP"
-            value={input.price}
-            name="price"
+            placeholder="Buscar..."
+            value={input.name}
+            name="name"
             onChange={handleInputChange}
           />
+          <label className="text-xl text-white font-bold mt-1">Por precio</label>
+          <div className="flex items-center justify-start py-2">
+            <input
+              className="border border-gray-300 rounded px-2 py-2 w-[60%] focus:outline-none lg:w-[45%] "
+              type="text"
+              placeholder="Precio COP"
+              value={input.price}
+              name="price"
+              onChange={handleInputChange}
+            />
+          </div>
+        <label className="text-xl text-white font-bold">Por modelo</label>
+        <div className="flex items-center justify-start py-2">
+          <select
+            onChange={handleInputChange}
+            name="type"
+            value={input.type}
+            className="border border-gray-300 rounded px-1 py-2 focus:outline-none w-[60%] lg:w-[45%]"
+          >
+            <option value="SU">SUV</option>
+            <option value="HB">Hatchback</option>
+            <option value="CT">Convertible</option>
+            <option value="SD">Sedán</option>
+            <option value="CP">Camioneta pickup</option>
+            <option value="MV">Minivan</option>
+            <option value="CO">Coupé</option>
+            <option value="SW">Station Wagon</option>
+            <option value="DP">Deportivo</option>
+            <option value="any">Cualquier Modelo</option>
+          </select>
         </div>
-        <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-r"
-          onClick={handleSearch}
-        >
-          Buscar
-        </button>
-      </div>
-      <div className="flex items-center justify-center py-2">
-        <select
-          onChange={handleInputChange}
-          name="type"
-          value={input.type}
-          className="border border-gray-300 rounded-l px-4 py-2 focus:outline-none"
-        >
-          <option value="SU">SUV</option>
-          <option value="HB">Hatchback</option>
-          <option value="CT">Convertible</option>
-          <option value="SD">Sedán</option>
-          <option value="CP">Camioneta pickup</option>
-          <option value="MV">Minivan</option>
-          <option value="CO">Coupé</option>
-          <option value="SW">Station Wagon</option>
-          <option value="DP">Deportivo</option>
-          <option value="any">Cualquier Modelo</option>
-        </select>
-      </div>
-      {!loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {cars.map((car, index) => (
-            <div
-              key={index}
-              className="bg-white shadow-lg p-4 rounded overflow-hidden"
+        <div className="py-2">
+          <button
+            className="bg-[#b6f09c] active:bg-[#95c480] text-[#131619] font-bold py-2 px-4 rounded w-[100%]"
+            onClick={handleSearch}
             >
-              <img src={car.image} alt={car.name} className="w-full h-60" />
-              <h3 className="text-xl font-bold mb-2">{car.name}</h3>
-              <p className="text-gray-600 mb-2">${car.price}</p>
-              <p className="text-gray-500 text-sm mb-4">{car.description}</p>
-              <p className="text-gray-500 text-sm">{car.model}</p>
-              <p className="text-gray-500 text-sm">{car.type}</p>
-              {userRole == "client" && (
-                <Link href={`/quotation/quotationId`}>
-                <button onClick={()=>makeRequest(car)} className="bg-blue-500 my-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ml-auto">
-                  Pedir cotización
-                </button>
-                </Link>
-              )}
-              {userRole == "staff" && (
-                <Link href={`/quotation/quotationId`}>
-                <button onClick={()=>makeRequest(car)} className="bg-blue-500 my-2 mx-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ">
-                  Vender
-                </button>
-                </Link>
-              )}{" "}
-            </div>
-          ))}
+            Buscar
+          </button>
         </div>
-      ) : (
-        <LoadingSpinner />
-      )}
+      </div>
+        {!loading ? (
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-[4rem] sm:mt-[0.5rem]">
+            {cars.map((car, index) => (
+              <div
+                key={index}
+                className="bg-[#0d0f10] shadow-lg p-8 rounded overflow-hidden"
+              > 
+                <img src={car.image} alt={car.name} className="w-full h-60" />
+                <h3 className="text-xl text-white font-bold mb-2 pt-2">{car.name}</h3>
+                <p className="text-white mb-2">${car.price}</p>
+                <p className="text-white text-sm mb-4">{car.description}</p>
+                <div className="flex align-middle justify-between ">
+                  <p className="text-white text-sm">{car.model}</p>
+                  <p className="text-white text-sm">{car.type}</p>
+                </div>
+                {userRole == "client" && (
+                  <button className="bg-[#b6f09c] mt-8 hover:bg-[#95c480] text-[#131619] font-bold py-2 px-4 w-[100%] rounded">
+                    Pedir cotización
+                  </button>
+                )}
+                {userRole == "staff" && (
+                  <button className="bg-[#b6f09c] mt-8 hover:bg-[#95c480] text-[#131619] font-bold py-2 px-4 w-[100%] rounded">
+                    Vender
+                  </button>
+                )}{" "}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <LoadingSpinner />
+        )}
+      </div>
     </div>
   );
 }
