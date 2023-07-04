@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getAllCars } from "../../api/car.api";
 import LoadingSpinner from "../../components/Loading";
 import styles from '../../styles/inicio.module.css';
+import Link from "next/link";
+
 
 export default function Cars() {
   const [input, setInput] = useState({ name: "", type: "any", price: "" });
@@ -13,6 +15,10 @@ export default function Cars() {
   function handleInputChange(event) {
     setInput({ ...input, [event.target.name]: event.target.value });
   }
+  function makeRequest(car) {
+    localStorage.setItem("quotationCar", JSON.stringify(car));
+  }
+
   function handleSearch() {
     setLoading(true);
 
