@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllCars } from "../../api/car.api";
 import LoadingSpinner from "../../components/Loading";
+import Link from "next/link";
 
 export default function Cars() {
   const [input, setInput] = useState({ name: "", type: "any", price: "" });
@@ -10,6 +11,10 @@ export default function Cars() {
   function handleInputChange(event) {
     setInput({ ...input, [event.target.name]: event.target.value });
   }
+  function makeRequest(car) {
+    localStorage.setItem("quotationCar", JSON.stringify(car));
+  }
+
   function handleSearch() {
     setLoading(true);
 
@@ -103,14 +108,18 @@ export default function Cars() {
               <p className="text-gray-500 text-sm">{car.model}</p>
               <p className="text-gray-500 text-sm">{car.type}</p>
               {userRole == "client" && (
-                <button className="bg-blue-500 my-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ml-auto">
+                <Link href={`/quotation/quotationId`}>
+                <button onClick={()=>makeRequest(car)} className="bg-blue-500 my-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ml-auto">
                   Pedir cotización
                 </button>
+                </Link>
               )}
               {userRole == "staff" && (
-                <button className="bg-blue-500 my-2 mx-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ">
+                <Link href={`/quotation/quotationId`}>
+                <button onClick={()=>makeRequest(car)} className="bg-blue-500 my-2 mx-2 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded  ">
                   Vender
                 </button>
+                </Link>
               )}{" "}
             </div>
           ))}
