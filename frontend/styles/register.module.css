@@ -1,0 +1,50 @@
+.register{
+    display:flex;
+    width: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3.5rem;
+}
+
+.registerGerente{
+    background-color: #131619;
+    display:flex;
+    width: 100%;
+    height: 92%;
+    max-height: 92%;
+    position: relative;
+    z-index: 1;
+    margin-left: 22%;
+    margin-top: 5vh;
+}
+
+@media(max-width: 880px){
+    .registerGerente{
+        margin-left: 0;
+    }
+}
+
+@media(max-width: 640px){
+    .registerGerente{
+        height: 100%;
+        width: 100%;
+        margin-left: 0;
+        margin:0;
+        position: relative;
+        right: 0;
+        top:0;
+    }
+}
+
+@media(max-width: 768px){
+    .registerGerente{
+        height: 100%;
+        width: 100%;
+        margin-left: 0;
+        margin:0;
+        position: relative;
+        right: 0;
+        top:0;
+    }
+}

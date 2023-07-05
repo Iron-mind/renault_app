@@ -1,0 +1,19 @@
+.order{
+    background-color: #131619;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 1;
+    margin-left: 22%;
+}
+
+@media (max-width: 880px){
+    .order{ 
+        width: 100vw;
+        height: 100vh;
+        margin-left: 0;
+        position: relative;
+        right: 0;
+        top:0;
+    }
+}

@@ -142,9 +142,9 @@ export default function Cars() {
               </div>
             ))}
           </div>
-        ) : (
-          <LoadingSpinner />
-        )}
+        ) : 
+        <LoadingSpinner/>
+        }
       </div>
     </div>
   );
