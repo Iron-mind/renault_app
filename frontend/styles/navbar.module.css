@@ -147,16 +147,26 @@
     padding-top: 10rem;
     right: -100%;
     transition: all .5s;
+    padding-bottom: 55%;
   }
   
   .navItem {
     color: #ffffff;
     margin-bottom: 1rem;
-    font-size:1.5rem;
+    height: 100%;
+    min-height: 40px;
+    font-size:1.2rem;
     background-color: #131619;
     border-radius: 0.4rem;
   }
   
+  .navItem a {
+    height: 100%;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    text-align: center;
+  }
   .navbarsSolid{
     background-color: white;
   }

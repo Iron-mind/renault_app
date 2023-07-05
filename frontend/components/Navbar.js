@@ -101,7 +101,6 @@ const Navbar = () => {
             <Link href="/order">Ordenes de Trabajo</Link>
           </li>
         )}
-        
       </ul>
       <div  className={`${styles.navAuth} ${isChecked && styles.navAuthActive}`} onClick={handleLinkClick}>        
         <Link  href="/profile" > <p className={styles.nickname}>@{username || "Usuario"}</p> </Link>

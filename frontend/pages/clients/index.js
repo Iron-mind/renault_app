@@ -80,7 +80,9 @@ export default function Clients() {
             </div>
           </div>
         </div>
-      :<LoadingSpinner />}
+      :
+      <LoadingSpinner/>
+      }
       
     </div>
   );

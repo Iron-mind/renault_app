@@ -6,9 +6,11 @@ import { useForm } from "react-hook-form"
 //Importaciones de funciones de la api
 import { createQuotation, getQuotation, getAllCars, editQuotation, getWorker, getClient, getCar, deleteQuotation  } from "../../../api/quotation.api"
 import { createDemand, getAllClients, getAllSellers, getDemand, editDemand, deleteDemand } from "../../../api/demand.api"
+import styles from "../../../styles/order.module.css"
 
 //Next.js
 import Link from "next/link";
+import LoadingSpinner from "@/components/Loading";
 
 //Importante que sea default
 export default function QuotationId() {
@@ -155,11 +157,11 @@ export default function QuotationId() {
 
     //Pagina
     return  (
-        <div>
+        <div className={styles.order}>
             {!loading?
-                <div className="flex max-h-[90%] min-h-[90%] h-[90%] max-w-[60%] min-w-[60%] w-[60%] bg-[#0d0f10] fixed right-[10rem] top-[3rem] rounded-md flex-col items-center py-24 px-24 pb-12">
-                    <div className="min-h-[60%] max-h-[60%] h-[60%] w-[100%]">
-                        <h1 className="block font-medium text-2xl pb-4 text-left">Complete los siguientes datos</h1>
+                <div className="h-[100vh] w-[100vw] min-[880px]:w-auto min-[880px]:h-auto min-[880px]:px-[300rem] flex bg-[#131619] rounded-md flex-col items-center py-4 px-10 pb-2 overflow-auto">
+                    <div className="h-[100%] w-[100%]">
+                        <h1 className="block font-medium text-3xl pb-4">Complete los siguientes datos</h1>
                         <form onSubmit={onSubmit} className="min-h-[100%] max-h-[100%] h-[100%] w-[100%] flex flex-col">
                             <span className="block font-medium ">
                                 Escoga el vehiculo
@@ -167,7 +169,7 @@ export default function QuotationId() {
                                     {...register("carName",{required: true})}
                                     value={mostrarCarro} 
                                     onChange={handleCarro}
-                                    className="rounded bg-[#131619] shadow-sm mt-1 px-3 py-2 border border-[#131619] placeholder-slate-400 focus:outline-none focus:border-[#bbb] focus:ring-[#bbb] block w-full sm:text-sm focus:ring-1 mb-[30px]">    
+                                    className="rounded text-black shadow-sm mt-1 px-3 py-2 border border-[#131619] placeholder-slate-400 focus:outline-none focus:border-[#bbb] focus:ring-[#bbb] block w-full sm:text-sm focus:ring-1 mb-[30px]">    
                                     <option disabled value="">Selecciona una opción</option>
                                     {cars.map((item) => (
                                         <option key={item.id} value={item.id}>
@@ -179,7 +181,7 @@ export default function QuotationId() {
                             {errors.carName && <span className="absolute right-[6rem] top-[8rem] after:ml-0.5 after:text-red-500 block font-medium mb-[20px]">Este campo es requerido</span>}
                             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block font-medium ">Precio de la cotización</span>
                             <input 
-                                className="rounded bg-[#131619] shadow-sm mt-1 px-3 py-2 border border-[#131619] placeholder-slate-400 focus:outline-none focus:border-[#bbb] focus:ring-[#bbb] block w-full sm:text-sm focus:ring-1 mb-[30px]"
+                                className="rounded text-black shadow-sm mt-1 px-3 py-2 border border-[#131619] placeholder-slate-400 focus:outline-none focus:border-[#bbb] focus:ring-[#bbb] block w-full sm:text-sm focus:ring-1 mb-[30px]"
                                 type="number" 
                                 placeholder="Precio" 
                                 {...register("price",{required: true})}/>
@@ -191,7 +193,7 @@ export default function QuotationId() {
                                     id="worker"
                                     name="worker"
                                     onChange={handleInputChange}
-                                    className="rounded bg-[#131619] shadow-sm mt-1 px-3 py-2 border border-[#131619] placeholder-slate-400 focus:outline-none focus:border-[#bbb] focus:ring-[#bbb] block w-full sm:text-sm focus:ring-1 mb-[30px]">    
+                                    className="rounded text-black shadow-sm mt-1 px-3 py-2 border border-[#131619] placeholder-slate-400 focus:outline-none focus:border-[#bbb] focus:ring-[#bbb] block w-full sm:text-sm focus:ring-1 mb-[30px]">    
                                         <option disabled value="">Selecciona una opción</option>
                                     {sellers.map((item) => (
                                         <option key={item.id} value={item.id}>
@@ -209,7 +211,7 @@ export default function QuotationId() {
                                             id="client"
                                             name="client"
                                             onChange={handleInputChange}
-                                            className="rounded bg-[#131619] shadow-sm mt-1 px-3 py-2 border border-[#131619] placeholder-slate-400 focus:outline-none focus:border-[#bbb] focus:ring-[#bbb] block w-full sm:text-sm focus:ring-1 mb-[30px]">    
+                                            className="rounded text-black shadow-sm mt-1 px-3 py-2 border border-[#131619] placeholder-slate-400 focus:outline-none focus:border-[#bbb] focus:ring-[#bbb] block w-full sm:text-sm focus:ring-1 mb-[30px]">    
                                                 <option disabled value="" defaultValue>Selecciona una opción</option>
                                             {clients.map((item) => (
                                                 <option key={item.id} value={item.id}>
@@ -266,34 +268,27 @@ export default function QuotationId() {
                                     }
                                 </div>
                             }
-                            <button className="rounded-full w-[10rem] h-[5rem] bg-[#b6f09c] absolute bottom-[3rem] right-[3rem] hover:bg-[#95c480] m-[1rem] text-[#131619] font-medium">Confirmar</button>
+                            <div className="w-full flex justify-end">
+                                <button className="rounded-full w-[7rem] h-[3rem] bg-[#b6f09c]  relative hover:bg-[#95c480] m-[1rem] mt-[2rem] mb-[6rem] text-[#131619] font-medium">Confirmar</button>
+                            </div>
                         </form>
+                        <Link href={'/quotation/'}>
+                            <button className="rounded-full w-[7rem] h-[3rem] bg-[#0d0f10] relative left-[0%] top-[-390px] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10] font-medium">Volver</button>
+                        </Link>
                         {params.id && <button 
-                            className="rounded-full w-[10rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] right-[16rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10] font-medium"
+                            className="rounded-full w-[7rem] h-[3rem] bg-[#0d0f10] absolute top-[550px] left-[35%] lg:absolute md:top-[478px]  lg:left-[20%] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10] font-medium"
                             onClick ={async () =>{
                                 const accepted = window.confirm('Estas seguro?')
                                 if(accepted){
-                                    console.log("estoy aqui")
-                                    console.log("ya borre la cotizacion")
                                     await deleteQuotation(params.id);
-                                    console.log("ya borre la peticion")
                                     await deleteDemand(idDemands)
                                     router.push('/quotation')
                         }}}>Borrar
                         </button>}   
                     </div>
-                    <Link href={'/quotation/'}>
-                        <button className="rounded-full w-[10rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] left-[3rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10] font-medium">Volver</button>
-                    </Link>
+                    
                 </div>:
-                <div
-                className="fixed right-[40%] top-[50%] h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                role="status"
-                >
-                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                        Loading...
-                    </span>
-                </div>
+                <LoadingSpinner/>
             }
         </div>
     )

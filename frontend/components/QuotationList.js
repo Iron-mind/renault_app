@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import { getAllQuotation, getWorker, getCar } from "../api/quotation.api.js"
 import { getDemand } from "../api/demand.api"
 import Link from "next/link";
+import styles from "../styles/order.module.css"
+import LoadingSpinner from "./Loading.js";
+
 
 export function QuotationList() {
     const [quotations, setQuotation] = useState([]);
@@ -63,27 +66,27 @@ export function QuotationList() {
     }, []);
 
     return  (
-        <div>
+        <div className={styles.order}>
             {!loading ?
-                <div className="flex max-h-[96%] min-h-[96%] h-[96%] max-w-[77%] min-w-[77%] w-[77%] bg-[#0d0f10] fixed right-[1rem] top-[1rem] rounded-md flex-col items-center py-24 px-24 pb-12 ">
+                <div className="w-auto h-auto flex flex-col justify-between items-center p-4 ">
                     <h1 className="block font-medium text-3xl p-2">Cotizaciones</h1>
-                    <div className="hover:table-fixed min-h-[70%] max-h-[70%]  h-[70%] w-[100%] overscroll-contain overflow-auto">
-                        <table className="table-fixed hover:table-fixed h-[100%] w-[100%] mt-[1rem] border-collapse text-sm m-0  overscroll-contain">
+                    <div className="max-w-[100%] h-[73vh] min-[880px]:h-[80vh] overflow-auto text-white">
+                        <table className="table-auto bg-[#131619]">
                             <thead>
-                                <tr className="sticky top-0 bg-[#0d0f10]" >
-                                    <th className="border-b dark:border-slate-600  p-4 pl-8 pt-0 pb-3 text-left">Nombre Del Vehiculo</th>
-                                    <th className="border-b dark:border-slate-600  p-4 pl-8 pt-0 pb-3 text-left">Cotizacion</th>
-                                    <th className="border-b dark:border-slate-600  p-4 pl-8 pt-0 pb-3 text-left">Hecho por</th>
-                                    <th className="border-b dark:border-slate-600  p-4 pl-8 pt-0 pb-3 text-left"></th>
+                                <tr className="sticky top-0 bg-[#95c480] text-black" >
+                                    <th className="border-b dark:border-slate-600 px-5 py-2  text-left">Nombre Del Vehiculo</th>
+                                    <th className="border-b dark:border-slate-600 px-5 py-2  text-left">Cotizacion</th>
+                                    <th className="border-b dark:border-slate-600 px-5 py-2  text-left">Hecho por</th>
+                                    <th className="border-b dark:border-slate-600 px-5 py-2  text-left"></th>
                                 </tr>
                             </thead>
                             <tbody className="bg-[#131619]">
                             { quotationModify.map((item) => (
                                 <tr key={item.id}>
-                                    <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8">{item.nameCar}</td>
-                                    <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8">{item.price}</td>
-                                    <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8">{item.nameSeller}</td>
-                                    <td className="border-b border-slate-200 dark:border-slate-600 p-4 pl-8 text-center">
+                                    <td className="border-l border-b border-slate-200 border dark:border-slate-600 px-2">{item.nameCar}</td>
+                                    <td className="border-l border-b border-slate-200 border dark:border-slate-600 px-2">{item.price}</td>
+                                    <td className="border-l border-b border-slate-200 border dark:border-slate-600 px-2">{item.nameSeller}</td>
+                                    <td className="border-l border-r border-b border-slate-200 dark:border-slate-600 p-4 pl-8 text-center">
                                         <Link href={`/quotation/quotationId?id=${item.id}`}>
                                             <button className="rounded-full w-[100px] h-[50px] bg-[#0d0f10] hover:bg-[#bbb] hover:text-[#0d0f10]">Editar</button>
                                         </Link>
@@ -94,17 +97,10 @@ export function QuotationList() {
                         </table>
                     </div>
                     <Link href= "/quotation/quotationId">
-                        <button className="rounded-full w-[15rem] h-[5rem] bg-[#131619] absolute bottom-[3rem] right-[3rem] hover:bg-[#bbb] m-[1rem] hover:text-[#0d0f10]">Añadir</button>
+                        <button className="h-[4rem] w-[8rem] mb-0 rounded-full bg-[#b6f09c] hover:bg-[#95c480] text-black m-[1rem] hover:text-[#0d0f10] p-2 font- text-center focus:outline-none tap:focus:outline-none">Añadir</button>
                     </Link>
                 </div>:
-                <div
-                className="fixed right-[40%] top-[50%] h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                role="status"
-                >
-                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                        Loading...
-                    </span>
-                </div> 
+                <LoadingSpinner/>
             }
         </div>
     )

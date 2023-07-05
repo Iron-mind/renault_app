@@ -6,6 +6,9 @@ import { getClient } from "../../api/order.api";
 import Image from "next/image";
 import { getStaff } from "../../api/client.api";
 import { Imprima } from "next/font/google";
+import styles from "../../styles/profile.module.css"
+import LoadingSpinner from "@/components/Loading";
+
 
 export default function Profile({ setRegisterOn, theUserName }) {
   //booleano auxiliar para crear el registro para el staff
@@ -128,25 +131,24 @@ export default function Profile({ setRegisterOn, theUserName }) {
   });
 
   return (
-    <div className="max-w-md mx-auto my-10">
-      <h2 className="text-center text-3xl text-white font-bold text-gray-900">
+    <div className={styles.profile}>
+      <h2 className="text-center text-3xl font-bold ">
         Perfil
       </h2>
       <div className="flex justify-center mt-5 ">
-        <div className="w-full max-w-xs justify-center mb-4">
+        <div className="flex w-full max-w-xs justify-center mb-4">
           <img src={inputClient.image || "/images/user.png"} className="bg-slate-50 rounded-md" width={150} height={150} />
         </div>
       </div>
       {!loading ? (
-        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form className="bg-[#131619] text-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block  text-sm font-bold mb-2"
               htmlFor="name"
             >
               Nombre
             </label>
-
             <input
               onChange={handleInputClientChange}
               value={inputClient.name}
@@ -159,7 +161,7 @@ export default function Profile({ setRegisterOn, theUserName }) {
           </div>
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-sm font-bold mb-2"
               htmlFor="username"
             >
               Username
@@ -177,7 +179,7 @@ export default function Profile({ setRegisterOn, theUserName }) {
           {jobTitle === "" && (
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-sm font-bold mb-2"
               htmlFor="email"
             >
               Correo
@@ -194,7 +196,7 @@ export default function Profile({ setRegisterOn, theUserName }) {
           </div>)}
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-sm font-bold mb-2"
               htmlFor="address"
             >
               Dirección
@@ -211,7 +213,7 @@ export default function Profile({ setRegisterOn, theUserName }) {
           </div>
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-sm font-bold mb-2"
               htmlFor="phone"
             >
               Teléfono
@@ -229,7 +231,7 @@ export default function Profile({ setRegisterOn, theUserName }) {
           {jobTitle === "" && (
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-sm font-bold mb-2"
               htmlFor="paymentType"
             >
               Método de pago
@@ -249,7 +251,7 @@ export default function Profile({ setRegisterOn, theUserName }) {
           </div>)}
           <div className="mb-6">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-sm font-bold mb-2"
               htmlFor="password"
             >
               Contraseña
@@ -267,7 +269,7 @@ export default function Profile({ setRegisterOn, theUserName }) {
           {esGerente && (
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-sm font-bold mb-2"
                 htmlFor="jobTittle"
               >
                 Cargo
@@ -291,50 +293,42 @@ export default function Profile({ setRegisterOn, theUserName }) {
           {esGerente && (
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-sm font-bold mb-2"
                 htmlFor="phone"
               >
                 Foto de perfil
               </label>
               <div
                 {...getRootProps()}
-                className="shadow  border rounded w-full py-2 px-3 appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow  border rounded w-full py-2 px-3 appearance-none leading-tight focus:outline-none focus:shadow-outline"
               >
                 <input {...getInputProps()} id="image" name="image" />
                 <p>Da clic para buscar la imagen en los archivos</p>
               </div>
             </div>
           )}
-          <div className="flex items-center justify-between">
-            <button
-              onClick={handleSubmit}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-            >
-              Editar
-            </button>
+          <div className="flex items-center justify-between mb-12">
             {/* boton para invitar a un amigo pegar link al portapapeles */}
             <button
               onClick={handleCopy}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-[#b6f09c] hover:bg-[#95c480] text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
               tooltip="Invita un amigo y obtiene descuentos" 
             >
               {coping? "Copiando" : "Invitar amigo"}
             </button>
-
+            <button
+              onClick={handleSubmit}
+              className="bg-[#b6f09c] hover:bg-[#95c480] text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Confirmar cambios
+            </button>
           </div>
         </form>
-      ) : (
-        <div
-          className="inline-block h-12 w-12 justify-center animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]"
-          role="status"
-        >
-          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-            Loading...
-          </span>
-        </div>
-      )}
+      ) : 
+        <LoadingSpinner/>
+      }
     </div>
   );
 }
