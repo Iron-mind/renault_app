@@ -124,9 +124,9 @@ export default function QuotationId() {
       if (!params.id) {
         setLoading(false);
         let carro = JSON.parse(localStorage.getItem("quotationCar"));
-        setMostrarCarro(carro.id + "");
-        setValue("carName", carro.id);
-        setValue("price", carro.price);
+        setMostrarCarro(carro?.id + "");
+        setValue("carName", carro?.id);
+        setValue("price", carro?.price);
         
       }
     }

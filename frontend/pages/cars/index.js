@@ -130,14 +130,18 @@ export default function Cars() {
                   <p className="text-white text-sm">{car.type}</p>
                 </div>
                 {userRole == "client" && (
-                  <button className="bg-[#b6f09c] mt-8 hover:bg-[#95c480] text-[#131619] font-bold py-2 px-4 w-[100%] rounded">
+                  <Link href="/quotation/quotationId">
+                  <button onClick={()=>makeRequest(car)} className="bg-[#b6f09c] mt-8 hover:bg-[#95c480] text-[#131619] font-bold py-2 px-4 w-[100%] rounded">
                     Pedir cotización
                   </button>
+                  </Link>
                 )}
                 {userRole == "staff" && (
-                  <button className="bg-[#b6f09c] mt-8 hover:bg-[#95c480] text-[#131619] font-bold py-2 px-4 w-[100%] rounded">
+                  <Link href="/quotation/quotationId">
+                  <button onClick={()=>makeRequest(car)} className="bg-[#b6f09c] mt-8 hover:bg-[#95c480] text-[#131619] font-bold py-2 px-4 w-[100%] rounded">
                     Vender
                   </button>
+                  </Link>
                 )}{" "}
               </div>
             ))}
