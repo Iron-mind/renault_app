@@ -10,7 +10,7 @@ import styles from "../../styles/profile.module.css"
 import LoadingSpinner from "@/components/Loading";
 
 
-export default function Profile({ setRegisterOn, theUserName }) {
+export default function Profile({ theUserName }) {
   //booleano auxiliar para crear el registro para el staff
 
   const [esGerente, setEsGerente] = useState(false);

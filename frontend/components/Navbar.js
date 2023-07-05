@@ -10,6 +10,7 @@ const Navbar = () => {
   const router = useRouter();
   const [authored, setAuthored] = React.useState(false);
   const [jobTitle, setJobTitle] = React.useState("VE");
+  const [ids, setIds] = React.useState("VE");
   const [username, setUsername] = React.useState("");
   const [isChecked, setIsChecked] = React.useState(false);
 
@@ -18,6 +19,8 @@ const Navbar = () => {
     setAuthored(isAuthenticated);
     const jobTitle = localStorage.getItem("jobTitle");
     setJobTitle(jobTitle);
+    const id = localStorage.getItem("id");
+    setIds(id)
     const username = localStorage
       .getItem("token")
       ?.split("520")[1]
@@ -77,7 +80,7 @@ const Navbar = () => {
         )}
         {jobTitle === "" && (
         <li className={styles.navItem} onClick={handleLinkClick}>
-          <Link href="/demand">Peticiones</Link>
+          <Link href={`/demand?id=${ids}`}>Peticiones</Link>
         </li>
         )}
         {jobTitle === "VE" && (

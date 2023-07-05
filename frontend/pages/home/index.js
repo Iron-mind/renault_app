@@ -7,13 +7,13 @@ export default function Home() {
     {
       id: 1,
       name: 'John Doe',
-      testimonial: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec turpis eget lorem posuere placerat.',
+      testimonial: '¡La página del concesionario de carros eléctricos es simplemente genial! Ofrece una amplia selección de vehículos, información clara y detallada, y una experiencia de navegación intuitiva. ¡Impresionante!',
       avatar: '/images/user.png',
     },
     {
       id: 2,
       name: 'Jane Smith',
-      testimonial: 'Fusce facilisis lacus non nibh egestas sagittis. In commodo enim eu enim facilisis, vitae lacinia tellus consequat.',
+      testimonial: 'La página del concesionario de carros eléctricos es sorprendente. Presenta una amplia gama de vehículos, información detallada y una navegación intuitiva.',
       avatar: '/images/user.png',
     },
   ];

@@ -5,8 +5,8 @@ export default function Home() {
     <div>
       <header>
         {/* Navbar */}
-        <nav class="flex justify-between items-center">
-          <ul class="flex space-x-4">
+        <nav className="flex justify-between items-center">
+          <ul className="flex space-x-4">
             <li>
               <a href="/home">Inicio</a>
             </li>
@@ -21,7 +21,7 @@ export default function Home() {
             </li>
           </ul>
           <div>
-            <a href="/login" class="ml-4 text-black">
+            <a href="/login" className="ml-4 text-black">
               Iniciar Sesión
             </a>
           </div>
