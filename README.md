@@ -24,5 +24,5 @@ npm run dev
 ![quotation renault](/readme_imgs/quotations.png)
 
 ## Clients
-![client renault](/readme_imgs/allcars.png)
+![client renault](/readme_imgs/allclients.png)
 
